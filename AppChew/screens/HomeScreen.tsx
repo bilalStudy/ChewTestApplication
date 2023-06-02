@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {AppState, StyleSheet, Text, View} from 'react-native'
 import React from 'react'
+import MainContainer from "../App";
+
 
 const HomeScreen = () => {
     return (
-        <View>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>HomeScreen</Text>
         </View>
+
+
     )
 }
 

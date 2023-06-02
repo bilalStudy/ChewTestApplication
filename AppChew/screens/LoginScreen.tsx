@@ -4,6 +4,8 @@ import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 import { userApi } from '../api/userApi'
 
 
+
+
 const LoginScreen = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -28,12 +30,13 @@ const LoginScreen = () => {
     const handleLogin = async () => {
         const result = await userApi.userLogin(username, password);
         if(result){
-            console.log("you are logged in")
+
         }
     }
 
 
     return (
+
         <KeyboardAvoidingView
             style={styles.container}
             behavior="padding"
