@@ -77,6 +77,7 @@ export default function MainContainer(){
                 <Tab.Screen name={settingName} component={SettingsScreen} />
 
             </Tab.Navigator>
+
         </NavigationContainer>
     );
 }
