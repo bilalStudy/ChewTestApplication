@@ -45,8 +45,8 @@ export function UserApi(db){
             });
 
             res.sendStatus(200);
-        }
-        ,
+        })
+    
         api.post('/login', async (req, res) => {
             const {username, password} = req.body;
 
@@ -65,7 +65,7 @@ export function UserApi(db){
                 res.sendStatus(404);
             }
         })
-        ,
+    
         api.get('/logged-in', async (req,res) => {
             if (!req.cookies.user || req.cookies.user.length == 0) {
                 res.sendStatus(403);
@@ -81,7 +81,8 @@ export function UserApi(db){
             }
 
             res.send(user);
-        }),
+        })
+    
         api.get("/", async (req, res) => {
             /*
             const managerId = req.cookies.manager;
@@ -94,18 +95,18 @@ export function UserApi(db){
 
             const listAllUsers = await db.collection("users")
                 .find()
-                .map(({ _id,username, fullname, password, role }) => ({
+                .map(({ _id,username, fullname, password, role, gradeclass }) => ({
                     id: _id,
                     username,
                     fullname,
                     password,
                     role,
+                    gradeclass,
                 }))
                 .toArray();
 
             res.json(listAllUsers)
         })
-    )
 
     return api;
 }
