@@ -6,7 +6,16 @@ const UserApi = (() => {
   };
 
   const getTeacherUser = async (username: string, password: string) => {
-    const result = await axios.get(userApiEndpoints.login);
-    return result;
+    const response = await axios.post(userApiEndpoints.login, {
+      username,
+      password,
+    });
+    return response.data;
+  };
+
+  return {
+    getTeacherUser,
   };
 })();
+
+export default UserApi;
