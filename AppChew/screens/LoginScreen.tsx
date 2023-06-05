@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
 import { userApi } from '../api/userApi'
 
 
@@ -32,96 +32,97 @@ const LoginScreen = () => {
         if(result){
             console.log("logged in")
             navigation.navigate('Home')
+        }else{
+            Alert.alert('Error', 'Invalid username or password');
         }
     }
 
 
     return (
 
-        <KeyboardAvoidingView
-            style={styles.container}
-            behavior="padding"
-        >
-            <View style={styles.inputContainer}>
-                <TextInput
-                    placeholder="Username"
-                    value={username}
-                    onChangeText={text => setUsername(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
-                    secureTextEntry
-                />
-            </View>
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    onPress={handleLogin}
-                    style={styles.button}
-                >
-                    <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={handleSignUp}
-                    style={[styles.button, styles.buttonOutline]}
-                >
-                    <Text style={styles.buttonOutlineText}>Register</Text>
-                </TouchableOpacity>
-            </View>
-        </KeyboardAvoidingView>
+        <View style={styles.container}>
+            {/* <Image source={imageSource} style={styles.image}></Image> */}
+            <Text style={styles.title}>Hello, Welcome Back</Text>
+
+            <Text style={styles.inputLabel}>School mail / Username</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Username"
+                value={username}
+                onChangeText={text => setUsername(text)}
+            />
+            <Text style={styles.inputLabel}>Enter Password</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                onChangeText={text =>setPassword(text)}
+                secureTextEntry
+            />
+            <TouchableOpacity onPress={() => {}}>
+                <Text style={styles.innerText}>Forgot Password?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleLogin} style={styles.button}>
+                <Text style={styles.buttonText}>Sign in</Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.icons}>
+        <GoogleSvg width={120} height={120} />
+      </TouchableOpacity> */}
+        </View>
     )
 }
 
 
 export default LoginScreen
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        paddingHorizontal: 20,
     },
-    inputContainer: {
-        width: '80%'
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 50,
+    },
+    image: {
+        width: 140,
+        height: 70,
+        marginBottom: 100,
+        left: 130,
     },
     input: {
-        backgroundColor: 'white',
+        height: 40,
+        width: 300,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom: 15,
         paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginTop: 5,
     },
-    buttonContainer: {
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40,
+    inputLabel: {
+        marginBottom: 10,
     },
     button: {
-        backgroundColor: '#0782F9',
-        width: '100%',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-    },
-    buttonOutline: {
-        backgroundColor: 'white',
-        marginTop: 5,
-        borderColor: '#0782F9',
-        borderWidth: 2,
+        marginTop: 20,
+        backgroundColor: '#F86D47',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
     },
     buttonText: {
         color: 'white',
-        fontWeight: '700',
         fontSize: 16,
+        textAlign: 'center',
     },
-    buttonOutlineText: {
-        color: '#0782F9',
-        fontWeight: '700',
-        fontSize: 16,
+    innerText: {
+        color: 'orange',
     },
-})
+    icons: {
+        borderWidth: 2,
+        borderRadius: 10,
+        paddingHorizontal: 30,
+        paddingVertical: 10,
+    },
+});
