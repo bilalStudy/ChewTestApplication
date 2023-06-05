@@ -9,6 +9,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import UserApi from '../services/userApi';
+import GoogleSvg from '../../assets/misc/google.svg';
+
+import FacebookSvg from '../../assets/misc/facebook.svg';
+
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface LoginProps {
@@ -36,7 +40,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={imageSource} style={styles.image}></Image>
+      {/* <Image source={imageSource} style={styles.image}></Image> */}
       <Text style={styles.title}>Hello, Welcome Back</Text>
 
       <Text style={styles.inputLabel}>School mail / Username</Text>
@@ -54,10 +58,15 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Text style={styles.innerText}>Forgot Password?</Text>
+      <TouchableOpacity onPress={() => {}}>
+        <Text style={styles.innerText}>Forgot Password?</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Sign in</Text>
       </TouchableOpacity>
+      {/* <TouchableOpacity style={styles.icons}>
+        <GoogleSvg width={120} height={120} />
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -105,6 +114,12 @@ const styles = StyleSheet.create({
   },
   innerText: {
     color: 'orange',
+  },
+  icons: {
+    borderWidth: 2,
+    borderRadius: 10,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
   },
 });
 
