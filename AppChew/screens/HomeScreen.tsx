@@ -1,12 +1,16 @@
 import {AppState, StyleSheet, Text, View} from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
 import MainContainer from "../App";
+import {AuthContext} from "../context/AuthContext";
 
 
 const HomeScreen = () => {
+
+    const {currentUser} = useContext(AuthContext);
+
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text>HomeScreen</Text>
+            <Text>{currentUser.username} and his role is {currentUser.role}</Text>
         </View>
 
 
