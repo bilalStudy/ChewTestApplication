@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import {AuthContext} from "../context/AuthContext";
 import {Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
 import { userApi } from '../api/userApi'
 
@@ -27,10 +28,14 @@ const LoginScreen = () => {
     const handleSignUp = async () => {
     }
 
+    const {login} = useContext(AuthContext)
+
     const handleLogin = async () => {
         const result = await userApi.userLogin(username, password);
         if(result){
             console.log("logged in")
+            login(result.user)
+            // @ts-ignore
             navigation.navigate('Home')
         }else{
             Alert.alert('Error', 'Invalid username or password');

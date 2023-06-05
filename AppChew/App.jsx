@@ -11,17 +11,20 @@ import RecipiesScreen from "./screens/RecipiesScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import React from "react";
 import MainContainer from "./MainContainer";
+import {AuthProvider} from "./context/AuthContext";
 
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
+      <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
           <Stack.Screen name="Home" component={MainContainer} />
         </Stack.Navigator>
       </NavigationContainer>
+      </AuthProvider>
 
 
 
