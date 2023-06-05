@@ -7,7 +7,7 @@ export function RecipeApi(db){
         api.get("/", async (req, res) => {
 
 
-            const listAllUsers = await db.collection("recipe")
+            const listAllRecipe = await db.collection("recipe")
                 .find()
                 .map(({ _id, dishname, picture, guide, description, nutrition, allergens, ingredients, kitchentools, category, culture }) => ({
                     id: _id,
@@ -24,7 +24,7 @@ export function RecipeApi(db){
                 }))
                 .toArray();
 
-            res.json(listAllUsers)
+            res.json(listAllRecipe)
         })
 
     return api;
