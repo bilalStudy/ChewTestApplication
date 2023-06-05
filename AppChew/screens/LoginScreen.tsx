@@ -30,7 +30,8 @@ const LoginScreen = () => {
     const handleLogin = async () => {
         const result = await userApi.userLogin(username, password);
         if(result){
-
+            console.log("logged in")
+            navigation.navigate('Home')
         }
     }
 
