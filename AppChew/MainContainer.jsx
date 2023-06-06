@@ -1,15 +1,15 @@
 import HomeScreen from './screens/HomeScreen';
-import SettingsScreen from './screens/SettingsScreen';
+import RecipeSearchScreen from './screens/RecipeSearchScreen';
+import Profile from './screens/Profile';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QuizScreen from './screens/QuizScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import RecipeSearchScreen from './screens/RecipeSearchScreen';
 
 const homeName = 'Announcements';
 const quizName = 'Quizes';
 const recipiesName = 'Recipies';
-const settingName = 'Settings';
+const profileName = 'Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,8 +29,8 @@ export default function MainContainer() {
               iconName = focused ? 'ribbon' : 'ribbon-outline';
             } else if (rn === recipiesName) {
               iconName = focused ? 'restaurant' : 'restaurant-outline';
-            } else if (rn === settingName) {
-              iconName = focused ? 'settings' : 'settings-outline';
+            } else if (rn === profileName) {
+              iconName = focused ? 'happy' : 'happy-outline';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -46,7 +46,7 @@ export default function MainContainer() {
         <Tab.Screen name={homeName} component={HomeScreen} />
         <Tab.Screen name={quizName} component={QuizScreen} />
         <Tab.Screen name={recipiesName} component={RecipeSearchScreen} />
-        <Tab.Screen name={settingName} component={SettingsScreen} />
+        <Tab.Screen name={profileName} component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );
