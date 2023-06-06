@@ -8,7 +8,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import QuizScreen from "./screens/QuizScreen";
 import RecipiesScreen from "./screens/RecipiesScreen";
-import SettingsScreen from "./screens/SettingsScreen";
+import Profile from "./screens/Profile";
 import React from "react";
 import MainContainer from "./MainContainer";
 import {AuthProvider} from "./context/AuthContext";
