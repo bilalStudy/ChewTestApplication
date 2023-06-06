@@ -4,7 +4,9 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import QuizScreen from "./screens/QuizScreen";
 import { NavigationContainer } from '@react-navigation/native';
-import RecipeSearchScreen from "./screens/RecipeSearchScreen";
+import RecipeScreen from "./screens/RecipiesScreen";
+import ScreenScreen from "./screens/AlternativeRecipeScreen";
+import AlternativeRecipeScreen from "./screens/AlternativeRecipeScreen";
 
 const homeName= 'Announcements';
 const quizName = 'Quizes';
@@ -49,7 +51,7 @@ export default function MainContainer() {
 
                 <Tab.Screen name={homeName} component={HomeScreen}/>
                 <Tab.Screen name={quizName} component={QuizScreen}/>
-                <Tab.Screen name={recipiesName} component={RecipeSearchScreen}/>
+                <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen}/>
                 <Tab.Screen name={profileName} component={Profile}/>
 
             </Tab.Navigator>
