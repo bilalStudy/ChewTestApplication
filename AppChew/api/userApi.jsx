@@ -1,12 +1,20 @@
+import { Platform } from 'react-native'
+
+export const baseUrl = Platform.OS === 'android' ?
+    'http://10.0.2.2:3000' : 'http://localhost:3000';
+
+
+
 export const userApi = {
 
+
     getLoggedInUser: async () => {
-        const res = await fetch("http://localhost:3000/api/users/logged-in");
+        const res = await fetch(`${baseUrl}/api/users/logged-in`);
 
         return res.ok ? await res.json() : null;
     },
     registerNewUser:async (user) => {
-        const res = await fetch('http://localhost:3000/api/users/register', {
+        const res = await fetch(`${baseUrl}/api/users/register`, {
             method : "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -18,7 +26,7 @@ export const userApi = {
     },
 
     userLogin : async (username, password) => {
-        const res = await fetch("http://localhost:3000/api/users/login", {
+        const res = await fetch(`${baseUrl}/api/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
