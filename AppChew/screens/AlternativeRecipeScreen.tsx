@@ -73,7 +73,7 @@ const AlternativeRecipeScreen = () => {
                             style={styles.selectedRecipeImage}
                             source={{ uri: selectedRecipe.picture }}
                         />
-                        <Text>{selectedRecipe.dishname.toUpperCase()}</Text>
+                        <Text>{selectedRecipe.dishname}</Text>
                         <Text>Guide: {selectedRecipe.guide}</Text>
                         <Text>Description: {selectedRecipe.description}</Text>
                         <Text>Nutrition: {selectedRecipe.nutrition}</Text>
