@@ -1,10 +1,10 @@
 import HomeScreen from "./screens/HomeScreen";
-import RecipiesScreen from "./screens/RecipiesScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import QuizScreen from "./screens/QuizScreen";
 import { NavigationContainer } from '@react-navigation/native';
+import RecipeSearchScreen from "./screens/RecipeSearchScreen";
 
 const homeName= 'Announcements';
 const quizName = 'Quizes';
@@ -49,7 +49,7 @@ export default function MainContainer() {
 
                 <Tab.Screen name={homeName} component={HomeScreen}/>
                 <Tab.Screen name={quizName} component={QuizScreen}/>
-                <Tab.Screen name={recipiesName} component={RecipiesScreen}/>
+                <Tab.Screen name={recipiesName} component={RecipeSearchScreen}/>
                 <Tab.Screen name={settingName} component={SettingsScreen}/>
 
             </Tab.Navigator>
