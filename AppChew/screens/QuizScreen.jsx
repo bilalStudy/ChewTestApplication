@@ -9,9 +9,11 @@ const QuizScreen = () => {
             <Image
                 style={{height: 300, width: "100%", resizeMode: 'contain'}}
                 source={require('../assets/quizlogo.png')}/>
-            <Text>hello</Text>
+            <view style={{padding: 10, backgroundColor: "tomato", borderRadius: 6, marginTop15}}>
+                <Text></Text>
+                <Text></Text>
 
-
+            </view>
         </View>
     )
 }
