@@ -3,7 +3,7 @@ import { baseUrl } from './userApi';
 
 export const listQuizzes = async () => {
   try {
-    const result = await fetch(`${baseUrl}/api/quiz`);
+    const result = await fetch(`${baseUrl}/api/quiz/quizzes`);
     if (!result.ok) {
       throw new Error(`HTTP error! status: ${result.status}`);
     }
@@ -15,6 +15,7 @@ export const listQuizzes = async () => {
   }
 };
 
+/*
 export const createQuiz = async (quizName, questions) => {
   try {
     const res = await fetch(`${baseUrl}/api/quiz`, {
@@ -35,11 +36,16 @@ export const createQuiz = async (quizName, questions) => {
   }
 };
 
+*/
+
 // Usage example:
 listQuizzes().catch((error) => {
   console.error(error);
 });
 
+/*
 createQuiz("Quiz Name", ["Question 1", "Question 2"]).catch((error) => {
   console.error(error);
 });
+
+*/
