@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, Image, TouchableOpacity, Modal, StyleSheet, FlatList, Dimensions} from 'react-native';
 import {recipeApi} from "../api/recipeApi";
+import TextInputWithIcon from "./TextInputWithIcon";
 
 interface Recipe {
     id: string;
@@ -19,21 +20,24 @@ interface Recipe {
 const AlternativeRecipeScreen = () => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+    const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const fetchedRecipes = await recipeApi.listAll();
-                setRecipes(fetchedRecipes);
-            } catch (error) {
-                console.error('Error fetching recipes:', error);
-            }
-        };
+        (async () => {
+            const allRecipes = await recipeApi.listAll();
 
-        fetchData().catch(error => {
-            console.error('Error fetching recipes:', error);
-        });
-    }, []);
+            // Filter recipes based on searchTerm
+            const filteredRecipes = allRecipes.filter(
+                (recipe: { dishname: string }) => {
+                    return recipe.dishname
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase());
+                }
+            );
+            setRecipes(filteredRecipes);
+        })();
+    }, [searchTerm]);
+
 
     const handleRecipePress = (recipe: Recipe) => {
         setSelectedRecipe(recipe);
@@ -43,6 +47,9 @@ const AlternativeRecipeScreen = () => {
         setSelectedRecipe(null);
     };
 
+    const handleSearch = (text: string) => {
+        setSearchTerm(text);
+    };
 
     const renderRecipeItem = ({ item }: { item: Recipe }) => (
         <TouchableOpacity
@@ -59,6 +66,16 @@ const AlternativeRecipeScreen = () => {
 
     return (
         <View style={styles.container}>
+            <View style={styles.searchBarContainer}>
+                <TextInputWithIcon
+                    onChangeText={handleSearch}
+                    icon="search"
+                    placeholder="Search recipe"
+                />
+            </View>
+            <Text style={{ marginLeft: 20, fontSize: 20, marginBottom: 10 }}>
+                Search Result
+            </Text>
             <FlatList
                 data={recipes}
                 renderItem={renderRecipeItem}
@@ -99,8 +116,17 @@ const itemWidth = (windowWidth - 32) / 2;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
+    },
+    searchBarContainer: {
+        marginLeft: 10,
+        marginTop: 10,
+    },
+    box: {
+        backgroundColor: '#F86D47',
+        width: 40,
+        height: 40,
+        borderRadius: 10,
     },
     title: {
         fontSize: 24,
@@ -108,7 +134,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     recipeList: {
-        alignItems: 'center',
+        alignItems: "flex-start",
         paddingHorizontal: 8,
     },
     recipeItem: {

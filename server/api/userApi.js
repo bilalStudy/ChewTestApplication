@@ -95,13 +95,14 @@ export function UserApi(db){
 
             const listAllUsers = await db.collection("users")
                 .find()
-                .map(({ _id,username, fullname, password, role, gradeclass }) => ({
+                .map(({ _id,username, fullname, password, role, gradeclass, school}) => ({
                     id: _id,
                     username,
                     fullname,
                     password,
                     role,
                     gradeclass,
+                    school,
                 }))
                 .toArray();
 
