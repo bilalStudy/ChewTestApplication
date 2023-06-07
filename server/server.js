@@ -7,6 +7,7 @@ import path from "path";
 import { UserApi } from "./api/userApi.js"
 import {WebSocketServer} from "ws";
 import {RecipeApi} from "./api/recipeApi.js";
+import {QuizApi} from "./api/quizApi.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ if(mongodburl){
     client.connect().then(async (conn) => {
         app.use("/api/users", UserApi(conn.db(mongoDbName)));
         app.use("/api/recipe", RecipeApi(conn.db(mongoDbName)));
+        app.use("/api/quiz", QuizApi(conn.db(mongoDbName)));
     })
 }
 

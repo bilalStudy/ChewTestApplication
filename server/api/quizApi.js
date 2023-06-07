@@ -10,19 +10,32 @@ export function QuizApi(db) {
       const quizzes = await db
         .collection("quiz")
         .find()
-        .map(({ _id, quizName, questions }) => ({
-          id: _id,
-          quizName,
-          questions,
-        }))
         .toArray();
 
       res.json(quizzes);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'An error occurred while getting the quizzes.' });
+      res
+        .status(500)
+        .json({ message: "An error occurred while getting the quizzes." });
     }
   });
+
+    api.get("/quizzes", async (req, res) => {try {
+        const listAllQuiz = await db.collection("quiz")
+            .find()
+            .map(({ _id, quizName, questions }) => ({
+                id: _id,
+                quizName,
+                questions
+            }))
+            .toArray();
+        res.json(listAllQuiz);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred while getting the quizzes.' });
+    }
+    })
 
   // POST /api/quiz
   api.post("/", async (req, res) => {
@@ -37,7 +50,9 @@ export function QuizApi(db) {
       res.status(201).json({ id: quiz.insertedId });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'An error occurred while creating the quiz.' });
+      res
+        .status(500)
+        .json({ message: "An error occurred while creating the quiz." });
     }
   });
 
