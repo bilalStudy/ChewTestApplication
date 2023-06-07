@@ -5,6 +5,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import QuizScreen from "./screens/QuizScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import RecipeSearchScreen from "./screens/RecipeSearchScreen";
+import RecipiesScreen from "./screens/RecipiesScreen";
+import AlternativeRecipeScreen from "./screens/AlternativeRecipeScreen";
 
 const homeName= 'Announcements';
 const quizName = 'Quizes';
@@ -39,17 +41,38 @@ export default function MainContainer() {
 
                         return <Ionicons name={iconName} size={size} color={color}/>;
                     },
+
+
+                    "tabBarActiveTintColor": "tomato",
+                    "tabBarInactiveTintColor": "grey",
+                    "tabBarLabelStyle": {
+                    "paddingBottom": 10,
+                    "fontSize": 10
+                },
+                    "tabBarStyle": [
+                {
+                    "padding": 10,
+                    "height":70,
+                    "display": "flex"
+                },
+                    null
+                    ]
+
+
                 })}
+                /*
                 tabBarOptions={{
                     activeTintColor: 'tomato',
                     inactiveTintColor: 'grey',
                     labelStyle: {paddingBottom: 10, fontSize: 10},
                     style: {padding: 10, height: 70}
-                }}>
+                }}*/>
+
+
 
                 <Tab.Screen name={homeName} component={HomeScreen}/>
                 <Tab.Screen name={quizName} component={QuizScreen}/>
-                <Tab.Screen name={recipiesName} component={RecipeSearchScreen}/>
+                <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen}/>
                 <Tab.Screen name={profileName} component={Profile}/>
 
             </Tab.Navigator>
