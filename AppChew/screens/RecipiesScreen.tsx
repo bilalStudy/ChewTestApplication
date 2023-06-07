@@ -13,8 +13,8 @@ interface Recipe {
     description: string;
     nutrition: string;
     allergens: string;
-    ingredients: string[];
-    kitchentools: string[];
+    ingredients: string;
+    kitchentools: string;
     category: string;
     culture: string;
 }
@@ -39,6 +39,8 @@ const RecipeScreen: React.FC = () => {
     }, []);
 
 
+
+
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Recipe Screen</Text>
@@ -55,11 +57,13 @@ const RecipeScreen: React.FC = () => {
                                 uri: recipe.picture,
                             }}
                         />
-                        <Text>Dish Name: {recipe.dishname}</Text>
+                        <Text>{recipe.dishname}</Text>
                         <Text>Guide: {recipe.guide}</Text>
                         <Text>Description: {recipe.description}</Text>
                         <Text>Nutrition: {recipe.nutrition}</Text>
                         <Text>Allergens: {recipe.allergens}</Text>
+                        <Text>Ingredient: {recipe.ingredients}</Text>
+                        <Text>KitchenTools: {recipe.kitchentools}</Text>
                         <Text>Category: {recipe.category}</Text>
                         <Text>Culture: {recipe.culture}</Text>
                     </View>
