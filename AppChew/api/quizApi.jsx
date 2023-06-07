@@ -35,7 +35,6 @@ export const createQuiz = async (quizName, questions) => {
     throw new Error("An error occurred while creating the quiz.");
   }
 };
-
 */
 
 // Usage example:
