@@ -1,11 +1,14 @@
-import axios from "axios";
-
-const API_BASE_URL = "/api/quiz"; // Replace with the actual API endpoint
+import React from 'react';
+import { baseUrl } from './userApi';
 
 export const listQuizzes = async () => {
   try {
-    const response = await axios.get(API_BASE_URL);
-    return response.data;
+    const result = await fetch(`${baseUrl}/api/quiz`);
+    if (!result.ok) {
+      throw new Error(`HTTP error! status: ${result.status}`);
+    }
+    const data = await result.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error("An error occurred while fetching the quizzes.");
@@ -14,8 +17,18 @@ export const listQuizzes = async () => {
 
 export const createQuiz = async (quizName, questions) => {
   try {
-    const response = await axios.post(API_BASE_URL, { quizName, questions });
-    return response.data.id;
+    const res = await fetch(`${baseUrl}/api/quiz`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quizName, questions }),
+    });
+    if (!result.ok) {
+      throw new Error(`HTTP error! status: ${result.status}`);
+    }
+    const data = await result.json();
+    return data.id;
   } catch (error) {
     console.error(error);
     throw new Error("An error occurred while creating the quiz.");
