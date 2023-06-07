@@ -1,90 +1,36 @@
 import React from 'react';
 import { baseUrl } from './userApi';
 
-export const recipeApi = {
-  listAll: async () => {
-    const result = await fetch(`${baseUrl}/api/recipe`);
-    const json = result.json();
+export const listQuizzes = async () => {
+  try {
+    const result = await fetch(`${baseUrl}/api/quiz`);
+    if (!result.ok) {
+      throw new Error(`HTTP error! status: ${result.status}`);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("An error occurred while fetching the quizzes.");
+  }
+};
 
-    return json;
-  },
-  insert: async ({
-    dishname,
-    picture,
-    guide,
-    description,
-    nutrition,
-    allergens,
-    ingredients,
-    kitchentools,
-    category,
-    culture,
-  }) => {
-    const res = await fetch(`${baseUrl}/api/recipe`, {
+export const createQuiz = async (quizName, questions) => {
+  try {
+    const res = await fetch(`${baseUrl}/api/quiz`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        dishname,
-        picture,
-        guide,
-        description,
-        nutrition,
-        allergens,
-        ingredients,
-        kitchentools,
-        category,
-        culture,
-      }),
+      body: JSON.stringify({ quizName, questions }),
     });
-
-    return res.ok;
-  },
-  update: async ({
-    id,
-    dishname,
-    picture,
-    guide,
-    description,
-    nutrition,
-    allergens,
-    ingredients,
-    kitchentools,
-    category,
-    culture,
-  }) => {
-    const res = await fetch(`${baseUrl}/api/recipe`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id,
-        dishname,
-        picture,
-        guide,
-        description,
-        nutrition,
-        allergens,
-        ingredients,
-        kitchentools,
-        category,
-        culture,
-      }),
-    });
-
-    return res.ok;
-  },
-  delete: async (id) => {
-    const res = await fetch(`${baseUrl}/api/recipe`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id }),
-    });
-
-    return res.ok;
-  },
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    const data = await res.json();
+    return data.id;
+  } catch (error) {
+    console.error(error);
+    throw new Error("An error occurred while creating the quiz.");
+  }
 };

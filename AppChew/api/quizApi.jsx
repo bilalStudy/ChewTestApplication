@@ -24,13 +24,22 @@ export const createQuiz = async (quizName, questions) => {
       },
       body: JSON.stringify({ quizName, questions }),
     });
-    if (!result.ok) {
-      throw new Error(`HTTP error! status: ${result.status}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
-    const data = await result.json();
+    const data = await res.json();
     return data.id;
   } catch (error) {
     console.error(error);
     throw new Error("An error occurred while creating the quiz.");
   }
 };
+
+// Usage example:
+listQuizzes().catch((error) => {
+  console.error(error);
+});
+
+createQuiz("Quiz Name", ["Question 1", "Question 2"]).catch((error) => {
+  console.error(error);
+});
