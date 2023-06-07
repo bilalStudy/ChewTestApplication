@@ -81,11 +81,10 @@ const RecipeSearchScreen = () => {
                   uri: `${x.picture}`,
                 }}
               />
-              {x.dishname && <Text>dishname : {x.dishname}</Text>}
+              {x.dishname && <Text>Name of Dish: {x.dishname}</Text>}
             </View>
           </View>
         ))}
-
       </View>
     </View>
   );
