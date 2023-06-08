@@ -4,8 +4,14 @@ import 'moment-timezone'
 import {recipeApi} from "../api/recipeApi";
 
 
-const AnnouncementScreen = () => {
+const EventScreen = () => {
+    const [recipes, setRecipes] = useState([]);
 
+    useEffect(() => {
+        (async () => {
+            setRecipes(await recipeApi.listAll());
+        })();
+    }, []);
 
     return (
         <View>
@@ -14,4 +20,4 @@ const AnnouncementScreen = () => {
     );
 }
 
-export default AnnouncementScreen;
+export default EventScreen;
