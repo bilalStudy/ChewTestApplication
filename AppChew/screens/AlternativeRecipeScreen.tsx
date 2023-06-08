@@ -11,8 +11,8 @@ interface Recipe {
     description: string;
     nutrition: string;
     allergens: string;
-    ingredients: string[];
-    kitchentools: string[];
+    ingredients: string;
+    kitchentools: string;
     category: string;
     culture: string;
 }
