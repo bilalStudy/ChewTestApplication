@@ -30,21 +30,19 @@ export function AnnouncementApi(db){
 
         const {_id, title, description, startTime, endTime, school, schoolClass, recipeId, authorId} = req.body
 
+        console.log(req.body)
 
-        console.log(req.body.authorId)
-
-
+        /*
         const currentUser = await db.collection("users")
-            .find({_id : new ObjectId(authorId)}).toArray();
+            .find({_id : new BsASObjectId(authorId)}).toArray();
 
         console.log(currentUser);
 
+         */
 
 
 
 
-
-        console.log(req.body)
 
         /*
         const result = db.collection("announcement").insertOne({

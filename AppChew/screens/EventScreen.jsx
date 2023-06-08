@@ -10,7 +10,7 @@ import {SelectList} from "react-native-dropdown-select-list";
 
 const EventScreen = () => {
     const [recipes, setRecipes] = useState([]);
-    const [recipe, setRecipe] = useState("");
+    const [recipe, setRecipe] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -38,16 +38,19 @@ const EventScreen = () => {
 
     const handleEvent = async () => {
         console.log(recipes)
-        console.log(recipe)
 
         setAuthorId(currentUser._id)
         setSchool(currentUser.school)
-        setRecipeId(recipe._id)
+        setRecipeId(recipe)
 
-        console.log(currentUser._id)
+        console.log(title)
+        console.log(description)
+        console.log(startTime)
+        console.log(endTime)
         console.log(currentUser.school)
-        console.log(recipe.key)
         console.log(schoolClass)
+        console.log(recipe)
+        console.log(currentUser._id)
 
         const result = await announcementApi.insert({
             title,
@@ -133,9 +136,10 @@ const EventScreen = () => {
                 <Text>{schoolClass}</Text>
                 <Text style={styles.inputLabel}>Oppskrift</Text>
                 <SelectList key={recipe._id}
+                            onSelect={()=> alert(recipe)}
                             setSelected={setRecipe}
                             data={recipes}
-                            save="value"
+                            save={"key"}
                 />
 
                 <Text>{recipe.key}{recipes.value}</Text>

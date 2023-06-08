@@ -14,7 +14,7 @@ export const announcementApi = {
                        startTime,
                        endTime,
                        school,
-                       schoolclass,
+                       schoolClass,
                        recipeId,
                        authorId
                    }) => {
@@ -29,7 +29,7 @@ export const announcementApi = {
                 startTime,
                 endTime,
                 school,
-                schoolclass,
+                schoolClass,
                 recipeId,
                 authorId
             }),
