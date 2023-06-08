@@ -1,23 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, Platform} from 'react-native';
 import {announcementApi} from "../api/announcementApi";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {AuthContext} from "../context/AuthContext";
 
 
 const AnnouncementScreen = () => {
-
-    const [Announcements, setAnnouncements] = useState([])
-    const [teacherAnnouncements, setTeacherAnnouncements] = useState([])
+    const {currentUser} = useContext(AuthContext);
+    const [announcements, setAnnouncements] = useState([])
+    const [classAnnouncements, setClassAnnouncements] = useState([])
 
     useEffect(() => {
         (async () => {
-            setAnnouncements(await announcementApi.listAll());
+            setAnnouncements(await announcementApi.findTeacherBased(currentUser.school));
+            //setClassAnnouncements(await announcementApi.findPupilBased(currentUser.school, currentUser.schoolClass))
         })();
     }, []);
 
     return (
         <View>
-
+            {announcements.map(x => (
+                <View>
+                    <Text>{x.title} {x.description}</Text>
+                </View>
+            ))}
         </View>
     );
 }

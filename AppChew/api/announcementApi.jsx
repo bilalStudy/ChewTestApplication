@@ -13,8 +13,8 @@ export const announcementApi = {
 
         return await res.json()
     },
-    findPupilBased: async (schoolClass) => {
-        const res = await fetch(`${baseUrl}/api/announcement/${schoolClass}`);
+    findPupilBased: async (school, schoolClass) => {
+        const res = await fetch(`${baseUrl}/api/announcement/${school}/${schoolClass}`);
 
         return await res.json()
     },
