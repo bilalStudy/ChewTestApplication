@@ -8,6 +8,16 @@ export const announcementApi = {
 
         return json;
     },
+    findTeacherBased: async (school) => {
+        const res = await fetch(`${baseUrl}/api/announcement/${school}`);
+
+        return await res.json()
+    },
+    findPupilBased: async (schoolClass) => {
+        const res = await fetch(`${baseUrl}/api/announcement/${schoolClass}`);
+
+        return await res.json()
+    },
     insert: async ({
                        title,
                        description,

@@ -44,25 +44,25 @@ export function AnnouncementApi(db){
 
 
 
-        /*
+
         const result = db.collection("announcement").insertOne({
-            id: _id,
             title,
             description,
             startTime,
             endTime,
-            schoolclass,
+            school,
+            schoolClass,
             recipeId,
-            authorId
-
-
+            authorId,
         });
 
-         */
+
 
         res.sendStatus(200);
 
     })
+
+    api.get("/")
 
     return api;
 }
