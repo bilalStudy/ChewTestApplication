@@ -71,8 +71,8 @@ export default function MainContainer() {
 
 
 
-                <Tab.Screen name={homeName} component={HomeScreen}/>
-                <Tab.Screen name={quizName} component={EventScreen}/>
+                <Tab.Screen name={homeName} component={EventScreen}/>
+                <Tab.Screen name={quizName} component={QuizScreen}/>
                 <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen}/>
                 <Tab.Screen name={profileName} component={Profile}/>
 

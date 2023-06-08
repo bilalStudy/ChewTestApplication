@@ -1,15 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Button, Platform, Alert, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Button, Platform, Alert, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import 'moment-timezone'
 import {recipeApi} from "../api/recipeApi";
 import {AuthContext} from "../context/AuthContext";
 import {userApi} from "../api/userApi";
 import {announcementApi} from "../api/announcementApi";
+import {SelectList} from "react-native-dropdown-select-list";
 
 
 const EventScreen = () => {
     const [recipes, setRecipes] = useState([]);
-    const [recipe, setRecipe] = useState([]);
+    const [recipe, setRecipe] = useState("");
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -24,19 +25,30 @@ const EventScreen = () => {
 
     useEffect(() => {
         (async () => {
-            setRecipes(await recipeApi.listAll());
+            const allRecipes = await recipeApi.listAll();
+
+            let recipeArray = allRecipes.map((recipe) => {
+                return {key: recipe.id, value: recipe.dishname}
+            })
+
+            setRecipes(recipeArray);
+
         })();
     }, []);
 
     const handleEvent = async () => {
+        console.log(recipes)
+        console.log(recipe)
+
         setAuthorId(currentUser._id)
         setSchool(currentUser.school)
-        setRecipeId('6480c2726d5a6af3e221aaa1')
-        setSchoolClass('9b')
-        setTitle('velkommen til oppstartsuke 9b')
-        setDescription('vi skal starte med å lage kebab til uken')
-        setStartTime('2023-01-01')
-        setEndTime('2023-02-01')
+        setRecipeId(recipe._id)
+
+        console.log(currentUser._id)
+        console.log(currentUser.school)
+        console.log(recipe.key)
+        console.log(schoolClass)
+
         const result = await announcementApi.insert({
             title,
             description,
@@ -48,20 +60,89 @@ const EventScreen = () => {
             authorId
 
         });
-        if(result){
+        if (result) {
             console.log("post created")
-        }else{
+        } else {
             Alert.alert('Error', 'Invalid username or password');
         }
     }
 
+    const CustomTextInputField = (value) => {
+        return (
+            <View>
+                <Text style={styles.inputLabel}>{value}</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder={`${value}*`}
+                    value={value}
+                    onChangeText={text => this.value.setState(text)}
+                />
+            </View>
+        )
+    }
+
+    const SchoolClassData = [
+        {key: '1', value: '9a'},
+        {key: '2', value: '9b'},
+        {key: '3', value: '9c'},
+    ]
+
     return (
         <View>
-            <Text>{currentUser._id}</Text>
-            <Text>{currentUser.school}</Text>
-            <TouchableOpacity onPress={handleEvent} style={styles.button}>
-                <Text style={styles.buttonText}>Create Event</Text>
-            </TouchableOpacity>
+            <ScrollView>
+                <Text>{currentUser._id}</Text>
+                <Text>{currentUser.school}</Text>
+                <Text style={styles.inputLabel}>Tittel</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Tittel*"
+                    value={title}
+                    onChangeText={text => setTitle(text)}
+                />
+                <Text>{title}</Text>
+                <Text style={styles.inputLabel}>Beskrivelse</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Beskrivelse*"
+                    value={description}
+                    onChangeText={text => setDescription(text)}
+                />
+                <Text>{description}</Text>
+                <Text style={styles.inputLabel}>Start Tid</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Start Tid*"
+                    value={startTime}
+                    onChangeText={text => setStartTime(text)}
+                />
+                <Text>{startTime}</Text>
+                <Text style={styles.inputLabel}>Frist</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Frist"
+                    value={endTime}
+                    onChangeText={text => setEndTime(text)}
+                />
+                <Text>{endTime}</Text>
+                <Text style={styles.inputLabel}>Klasse</Text>
+                <SelectList
+                    setSelected={(val) => setSchoolClass(val)}
+                    data={SchoolClassData}
+                    save="value"
+                />
+                <Text>{schoolClass}</Text>
+                <Text style={styles.inputLabel}>Oppskrift</Text>
+                <SelectList key={recipe._id}
+                            setSelected={setRecipe}
+                            data={recipes}
+                            save="value"
+                />
+
+                <Text>{recipe.key}{recipes.value}</Text>
+                <TouchableOpacity onPress={handleEvent} style={styles.button}>
+                    <Text style={styles.buttonText}>Create Event</Text>
+                </TouchableOpacity>
+            </ScrollView>
         </View>
     );
 }
