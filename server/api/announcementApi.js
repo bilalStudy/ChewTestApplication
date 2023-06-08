@@ -104,7 +104,12 @@ export function AnnouncementApi(db){
         console.log(authors)
         console.log(recipes)
 
+        const superArray = []
+        superArray.push(schoolAnnouncement)
+        superArray.push(authors)
+        superArray.push(recipes)
 
+        res.json(superArray)
 
     })
 
