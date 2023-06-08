@@ -8,6 +8,7 @@ import { UserApi } from "./api/userApi.js"
 import {WebSocketServer} from "ws";
 import {RecipeApi} from "./api/recipeApi.js";
 import {QuizApi} from "./api/quizApi.js";
+import {AnnouncementApi} from "./api/announcementApi.js";
 
 dotenv.config();
 
@@ -29,7 +30,8 @@ if(mongodburl){
         app.use("/api/users", UserApi(conn.db(mongoDbName)));
         app.use("/api/recipe", RecipeApi(conn.db(mongoDbName)));
         app.use("/api/quiz", QuizApi(conn.db(mongoDbName)));
-    })
+        app.use("/api/announcement", AnnouncementApi(conn.db(mongoDbName)));
+    });
 }
 
 
