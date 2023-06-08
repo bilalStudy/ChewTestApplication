@@ -7,8 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import RecipeSearchScreen from "./screens/RecipeSearchScreen";
 import RecipiesScreen from "./screens/RecipiesScreen";
 import AlternativeRecipeScreen from "./screens/AlternativeRecipeScreen";
-import AnnouncementScreen from "./screens/AnnouncementScreen";
-import ScheduleScreen from "./screens/AlternativeAnnouncementScreen";
+import EventScreen from "./screens/EventScreen";
 
 const homeName= 'Announcements';
 const quizName = 'Quizes';
@@ -73,7 +72,7 @@ export default function MainContainer() {
 
 
                 <Tab.Screen name={homeName} component={HomeScreen}/>
-                <Tab.Screen name={quizName} component={ScheduleScreen}/>
+                <Tab.Screen name={quizName} component={EventScreen}/>
                 <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen}/>
                 <Tab.Screen name={profileName} component={Profile}/>
 
