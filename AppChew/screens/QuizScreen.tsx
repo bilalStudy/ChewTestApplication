@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   StyleSheet,
@@ -6,12 +7,12 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import { listQuizzes } from '../api/quizApi';
 
 interface Question {
   question: string;
   answer: boolean;
+  answerStatus?: 'green' | 'red';
 }
 
 interface QuizItem {
@@ -20,13 +21,8 @@ interface QuizItem {
   questions: Question[];
 }
 
-interface AnswerStatus {
-  [key: string]: string;
-}
-
 const QuizScreen = () => {
   const [quizzes, setQuizzes] = useState<QuizItem[]>([]);
-  const [answerStatus, setAnswerStatus] = useState<AnswerStatus>({});
 
   useEffect(() => {
     fetchQuizzes();
@@ -42,10 +38,26 @@ const QuizScreen = () => {
   };
 
   const handleAnswer = (questionId: string, isTrue: boolean) => {
-    setAnswerStatus((prev) => ({
-      ...prev,
-      [questionId]: isTrue ? 'green' : 'red',
-    }));
+    setQuizzes((prevQuizzes) => {
+      const updatedQuizzes = prevQuizzes.map((quiz) => {
+        if (quiz.questions.some((q) => q.question === questionId)) {
+          return {
+            ...quiz,
+            questions: quiz.questions.map((question) => {
+              if (question.question === questionId) {
+                return {
+                  ...question,
+                  answerStatus: isTrue ? 'green' : 'red',
+                };
+              }
+              return question;
+            }),
+          };
+        }
+        return quiz;
+      });
+      return updatedQuizzes;
+    });
   };
 
   const screenWidth = Dimensions.get('window').width;
@@ -61,32 +73,27 @@ const QuizScreen = () => {
             {item.questions.map((questionObj, index) => (
               <View
                 key={index}
-                style={[styles.quizItem, { width: screenWidth * 0.8 }]}
+                style={[
+                  styles.quizItem,
+                  { width: screenWidth * 0.8 },
+                ]}
               >
                 <View style={styles.questionBox}>
                   <Text>{questionObj.question}</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <View style={styles.button}>
+                  <View style={[styles.button, { backgroundColor: questionObj.answerStatus === 'green' ? 'green' : '#F86D47' }]}>
                     <Button
-                      title="True?"
-                      color={
-                        answerStatus[questionObj.question] === 'green'
-                          ? 'green'
-                          : '#F86D47'
-                      }
+                      title="True"
                       onPress={() => handleAnswer(questionObj.question, true)}
+                      color="#fff"
                     />
                   </View>
-                  <View style={styles.button}>
+                  <View style={[styles.button, { backgroundColor: questionObj.answerStatus === 'red' ? 'red' : '#F86D47' }]}>
                     <Button
-                      title="False?"
-                      color={
-                        answerStatus[questionObj.question] === 'red'
-                          ? 'red'
-                          : '#F86D47'
-                      }
+                      title="False"
                       onPress={() => handleAnswer(questionObj.question, false)}
+                      color="#fff"
                     />
                   </View>
                 </View>
@@ -118,7 +125,6 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     padding: 10,
     borderColor: '#000',
-
     borderRadius: 10,
     backgroundColor: '#D9D9D9',
   },
