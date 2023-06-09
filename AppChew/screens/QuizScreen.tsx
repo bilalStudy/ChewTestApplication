@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   StyleSheet,
@@ -6,12 +7,13 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import { listQuizzes } from '../api/quizApi';
 
 interface Question {
   question: string;
   answer: boolean;
+  userAnswer?: boolean;
+  answerStatus?: boolean;
 }
 
 interface QuizItem {
@@ -20,13 +22,8 @@ interface QuizItem {
   questions: Question[];
 }
 
-interface AnswerStatus {
-  [key: string]: string;
-}
-
 const QuizScreen = () => {
   const [quizzes, setQuizzes] = useState<QuizItem[]>([]);
-  const [answerStatus, setAnswerStatus] = useState<AnswerStatus>({});
 
   useEffect(() => {
     fetchQuizzes();
@@ -42,10 +39,27 @@ const QuizScreen = () => {
   };
 
   const handleAnswer = (questionId: string, isTrue: boolean) => {
-    setAnswerStatus((prev) => ({
-      ...prev,
-      [questionId]: isTrue ? 'green' : 'red',
-    }));
+    setQuizzes((prevQuizzes) => {
+      const updatedQuizzes = prevQuizzes.map((quiz) => {
+        if (quiz.questions.some((q) => q.question === questionId)) {
+          return {
+            ...quiz,
+            questions: quiz.questions.map((question) => {
+              if (question.question === questionId) {
+                return {
+                  ...question,
+                  userAnswer: isTrue,
+                  answerStatus: isTrue === question.answer,
+                };
+              }
+              return question;
+            }),
+          };
+        }
+        return quiz;
+      });
+      return updatedQuizzes;
+    });
   };
 
   const screenWidth = Dimensions.get('window').width;
@@ -67,26 +81,57 @@ const QuizScreen = () => {
                   <Text>{questionObj.question}</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <View style={styles.button}>
+                  <View
+                    style={[
+                      styles.button,
+                      {
+                        backgroundColor:
+                          questionObj.userAnswer !== undefined
+                            ? questionObj.userAnswer === true
+                              ? questionObj.answerStatus
+                                ? '#34A853'
+                                : '#EA4335'
+                              : 'transparent'
+                            : 'transparent',
+                      },
+                    ]}
+                  >
                     <Button
                       title="True?"
+                      onPress={() => handleAnswer(questionObj.question, true)}
                       color={
-                        answerStatus[questionObj.question] === 'green'
-                          ? 'green'
+                        questionObj.userAnswer !== undefined &&
+                        questionObj.userAnswer === true
+                          ? '#fff'
                           : '#F86D47'
                       }
-                      onPress={() => handleAnswer(questionObj.question, true)}
                     />
                   </View>
-                  <View style={styles.button}>
+
+                  <View
+                    style={[
+                      styles.button,
+                      {
+                        backgroundColor:
+                          questionObj.userAnswer !== undefined
+                            ? questionObj.userAnswer === false
+                              ? questionObj.answerStatus
+                                ? '#34A853'
+                                : '#EA4335'
+                              : 'transparent'
+                            : 'transparent',
+                      },
+                    ]}
+                  >
                     <Button
                       title="False?"
+                      onPress={() => handleAnswer(questionObj.question, false)}
                       color={
-                        answerStatus[questionObj.question] === 'red'
-                          ? 'red'
+                        questionObj.userAnswer !== undefined &&
+                        questionObj.userAnswer === false
+                          ? '#fff'
                           : '#F86D47'
                       }
-                      onPress={() => handleAnswer(questionObj.question, false)}
                     />
                   </View>
                 </View>
@@ -118,7 +163,6 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     padding: 10,
     borderColor: '#000',
-
     borderRadius: 10,
     backgroundColor: '#D9D9D9',
   },
@@ -127,8 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
-    width: '45%',
-    borderWidth: 0.5,
+    width: '50%',
     borderRadius: 10,
   },
 });
