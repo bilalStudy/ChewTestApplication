@@ -14,6 +14,8 @@ const AnnouncementScreen = () => {
             setAnnouncements(await announcementApi.listAll())
             //setAnnouncements(await announcementApi.findSchoolBased(currentUser.school));
             //setClassAnnouncements(await announcementApi.findSchoolClassBased(currentUser.school, currentUser.schoolClass))
+
+            console.log(announcements)
         })();
     }, []);
 
