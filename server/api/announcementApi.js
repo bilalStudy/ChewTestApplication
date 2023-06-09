@@ -46,7 +46,6 @@ export function AnnouncementApi(db){
 
 
 
-
         const result = db.collection("announcement").insertOne({
             title,
             description,

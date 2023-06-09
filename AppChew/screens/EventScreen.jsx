@@ -9,6 +9,7 @@ import {SelectList} from "react-native-dropdown-select-list";
 
 
 const EventScreen = () => {
+    const {currentUser} = useContext(AuthContext);
     const [recipes, setRecipes] = useState([]);
     const [recipe, setRecipe] = useState('');
     const [title, setTitle] = useState('');
@@ -20,8 +21,6 @@ const EventScreen = () => {
     const [recipeId, setRecipeId] = useState('');
     const [authorId, setAuthorId] = useState('');
 
-    const {currentUser} = useContext(AuthContext);
-
 
     useEffect(() => {
         (async () => {
@@ -31,18 +30,20 @@ const EventScreen = () => {
                 return {key: recipe.id, value: recipe.dishname}
             })
 
+
+
             setRecipes(recipeArray);
 
         })();
     }, []);
 
-    const handleEvent = async () => {
-        console.log(recipes)
 
+    const handleEvent = async () => {
         setAuthorId(currentUser._id)
         setSchool(currentUser.school)
         setRecipeId(recipe)
 
+        console.log(recipes)
         console.log(title)
         console.log(description)
         console.log(startTime)
@@ -136,13 +137,13 @@ const EventScreen = () => {
                 <Text>{schoolClass}</Text>
                 <Text style={styles.inputLabel}>Oppskrift</Text>
                 <SelectList key={recipe._id}
-                            onSelect={()=> alert(recipe)}
+                            onSelect={() => alert(recipe)}
                             setSelected={setRecipe}
                             data={recipes}
                             save={"key"}
                 />
 
-                <Text>{recipe.key}{recipes.value}</Text>
+                <Text>{recipe} and {recipe.key}{recipes.value}</Text>
                 <TouchableOpacity onPress={handleEvent} style={styles.button}>
                     <Text style={styles.buttonText}>Create Event</Text>
                 </TouchableOpacity>
