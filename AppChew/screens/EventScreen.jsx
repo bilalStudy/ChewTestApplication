@@ -43,6 +43,10 @@ const EventScreen = () => {
         setSchool(currentUser.school)
         setRecipeId(recipe)
 
+        const school = currentUser.school;
+        const authorId = currentUser._id;
+        const recipeId = recipe;
+
         console.log(recipes)
         console.log(title)
         console.log(description)
