@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, Platform} from 'react-native';
 import {announcementApi} from "../api/announcementApi";
-import {useParams} from "react-router-dom";
 import {AuthContext} from "../context/AuthContext";
 
 
@@ -12,18 +11,20 @@ const AnnouncementScreen = () => {
 
     useEffect(() => {
         (async () => {
-            setAnnouncements(await announcementApi.findTeacherBased(currentUser.school));
-            //setClassAnnouncements(await announcementApi.findPupilBased(currentUser.school, currentUser.schoolClass))
+            setAnnouncements(await announcementApi.listAll())
+            //setAnnouncements(await announcementApi.findSchoolBased(currentUser.school));
+            //setClassAnnouncements(await announcementApi.findSchoolClassBased(currentUser.school, currentUser.schoolClass))
         })();
     }, []);
 
     return (
         <View>
-            {announcements.map(x => (
-                <View>
-                    <Text>{x.title} {x.description}</Text>
+            {announcements.map((a) => (
+                <View key={a.id}>
+                    <Text>{a.title} ewohnioenwfweon {a.description} </Text>
                 </View>
             ))}
+
         </View>
     );
 }

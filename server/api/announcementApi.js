@@ -32,11 +32,13 @@ export function AnnouncementApi(db){
 
         console.log(req.body)
 
-
+        /*
         const currentUser = await db.collection("users")
-            .find({_id : new ObjectId(authorId)}).toArray();
+            .find({_id : new BSON.ObjectId(authorId)}).toArray();
 
         console.log(currentUser);
+
+         */
 
 
 
