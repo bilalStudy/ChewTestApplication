@@ -48,10 +48,10 @@ const EventScreen = () => {
         console.log(description)
         console.log(startTime)
         console.log(endTime)
-        console.log(currentUser.school)
+        console.log(school)
         console.log(schoolClass)
-        console.log(recipe)
-        console.log(currentUser._id)
+        console.log(recipeId)
+        console.log(authorId)
 
         const result = await announcementApi.insert({
             title,
@@ -71,6 +71,7 @@ const EventScreen = () => {
         }
     }
 
+    /*
     const CustomTextInputField = (value) => {
         return (
             <View>
@@ -84,6 +85,8 @@ const EventScreen = () => {
             </View>
         )
     }
+
+     */
 
     const SchoolClassData = [
         {key: '1', value: '9a'},
