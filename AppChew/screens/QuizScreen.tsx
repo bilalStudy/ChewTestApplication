@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   Dimensions,
+  Image,
 } from 'react-native';
 import { listQuizzes } from '../api/quizApi';
 
@@ -66,12 +67,32 @@ const QuizScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          width: '80%',
+          padding: 10,
+          borderRadius: 10,
+          alignItems: 'center',
+        }}
+      >
+        <Image
+          source={require('../assets/background2.jpg')}
+          style={{
+            resizeMode: 'cover',
+            width: '100%',
+            height: 150,
+            borderRadius: 10,
+          }}
+        />
+      </View>
+      <Text style={{ left: '25%' }}>(13k Reviews)</Text>
+
       <FlatList<QuizItem>
         data={quizzes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.quizItem}>
-            <Text>Quiz Name: {item.quizName}</Text>
+            <Text style={{ left: '5%' }}>Quiz Name: {item.quizName}</Text>
             {item.questions.map((questionObj, index) => (
               <View
                 key={index}
@@ -149,6 +170,7 @@ export default QuizScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     alignItems: 'center',
     justifyContent: 'center',
   },
