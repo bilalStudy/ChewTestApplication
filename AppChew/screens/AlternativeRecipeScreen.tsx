@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {View, Text, Image, TouchableOpacity, Modal, StyleSheet, FlatList, Dimensions} from 'react-native';
 import {recipeApi} from "../api/recipeApi";
 import TextInputWithIcon from "./TextInputWithIcon";
+import {useFocusEffect, useRoute} from "@react-navigation/native";
+import { useIsFocused } from '@react-navigation/native';
+import {useNavigation} from "@react-navigation/core";
 
 interface Recipe {
     id: string;
@@ -18,9 +21,15 @@ interface Recipe {
 }
 
 const AlternativeRecipeScreen = () => {
+    const route = useRoute()
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-    const [searchTerm, setSearchTerm] = useState('')
+    const [searchTerm, setSearchTerm] = useState('');
+    const isFocused = useIsFocused();
+    const navigation = useNavigation();
+    const [isFromAnnouncementScreen, setIsFromAnnouncementScreen] = useState(false);
+
+
 
     useEffect(() => {
         (async () => {
@@ -37,6 +46,31 @@ const AlternativeRecipeScreen = () => {
             setRecipes(filteredRecipes);
         })();
     }, [searchTerm]);
+
+
+
+    useEffect(() => {
+        if (isFocused && route.params) {
+
+            const { selectedData } = route.params || {};
+            setSearchTerm(selectedData || '');
+            console.log(selectedData)
+
+        }
+    }, [route.params]);
+
+    useEffect(() => {
+        if (!isFocused) {
+
+            const { selectedData } = {};
+            setSearchTerm( '');
+            console.log(selectedData)
+
+        }
+    }, [isFocused]);
+
+
+
 
 
     const handleRecipePress = (recipe: Recipe) => {
@@ -68,6 +102,7 @@ const AlternativeRecipeScreen = () => {
         <View style={styles.container}>
             <View style={styles.searchBarContainer}>
                 <TextInputWithIcon
+                    value={searchTerm}
                     onChangeText={handleSearch}
                     icon="search"
                     placeholder="Search recipe"

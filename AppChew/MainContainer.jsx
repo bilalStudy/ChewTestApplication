@@ -10,12 +10,14 @@ import AlternativeRecipeScreen from "./screens/AlternativeRecipeScreen";
 import EventScreen from "./screens/EventScreen";
 import AnnouncementScreen from "./screens/AnnouncementScreen";
 
-const homeName= 'Announcements';
-const quizName = 'Quizes';
-const recipiesName = 'Recipies';
-const profileName = 'Profile';
+export const homeName= 'Announcements';
+export const quizName = 'Quizes';
+export const recipiesName = 'Recipies';
+export const profileName = 'Profile';
 
 const Tab = createBottomTabNavigator()
+
+
 
 export default function MainContainer() {
     return (
@@ -23,6 +25,8 @@ export default function MainContainer() {
             <Tab.Navigator
                 initialRouteName={homeName}
                 screenOptions={({route}) => ({
+
+
                     tabBarIcon: ({focused, color, size}) => {
                         let iconName;
                         let rn = route.name;
@@ -49,7 +53,7 @@ export default function MainContainer() {
                     "tabBarInactiveTintColor": "grey",
                     "tabBarLabelStyle": {
                     "paddingBottom": 10,
-                    "fontSize": 10
+                    "fontSize": 10,
                 },
                     "tabBarStyle": [
                 {
@@ -72,10 +76,11 @@ export default function MainContainer() {
 
 
 
-                <Tab.Screen name={homeName} component={EventScreen}/>
-                <Tab.Screen name={quizName} component={QuizScreen}/>
+                <Tab.Screen name={homeName} component={AnnouncementScreen}/>
+                <Tab.Screen name={quizName} component={EventScreen}/>
                 <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen}/>
                 <Tab.Screen name={profileName} component={Profile}/>
+
 
             </Tab.Navigator>
 

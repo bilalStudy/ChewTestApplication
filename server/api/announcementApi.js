@@ -70,6 +70,8 @@ export function AnnouncementApi(db){
         const schoolAnnouncement = await db.collection("announcement")
             .find({school: req.params.school}).toArray();
 
+
+        /*
         console.log(schoolAnnouncement)
         console.log(schoolAnnouncement.map(user => (
             user.authorId
@@ -110,7 +112,9 @@ export function AnnouncementApi(db){
         superArray.push(authors)
         superArray.push(recipes)
 
-        res.json(superArray)
+         */
+
+        res.json(schoolAnnouncement)
 
     })
 
@@ -123,6 +127,8 @@ export function AnnouncementApi(db){
             .find({school: req.params.school, schoolClass: req.params.schoolClass}).toArray();
 
         console.log(schoolAnnouncement)
+
+        res.json(schoolAnnouncement)
 
 
 
