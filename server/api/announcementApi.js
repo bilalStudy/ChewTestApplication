@@ -9,7 +9,7 @@ export function AnnouncementApi(db){
 
         const listAllAnnouncements = await db.collection("announcement")
             .find()
-            .map(({ _id, title, description, startTime, endTime, school, schoolclass, recipeId, authorId }) => ({
+            .map(({ _id, title, description, startTime, endTime, school, schoolclass, recipeName, authorName }) => ({
                 id: _id,
                 title,
                 description,
@@ -17,8 +17,8 @@ export function AnnouncementApi(db){
                 endTime,
                 school,
                 schoolclass,
-                recipeId,
-                authorId
+                recipeName,
+                authorName
             }))
             .toArray();
 
@@ -28,9 +28,13 @@ export function AnnouncementApi(db){
     api.post("/", async (req, res) => {
 
 
-        const {_id, title, description, startTime, endTime, school, schoolClass, recipeId, authorId} = req.body
+        const {_id, title, description, startTime, endTime, school, schoolClass, recipeName, authorName} = req.body
 
         console.log(req.body)
+
+
+        // earlier implementation, finding based on author id and recipe id, the thought was that we send up all the arrays as json
+        // but saw a better/easier solution
 
         /*
         const currentUser = await db.collection("users")
@@ -53,8 +57,8 @@ export function AnnouncementApi(db){
             endTime,
             school,
             schoolClass,
-            recipeId,
-            authorId,
+            recipeName,
+            authorName,
         });
 
 
@@ -70,6 +74,9 @@ export function AnnouncementApi(db){
         const schoolAnnouncement = await db.collection("announcement")
             .find({school: req.params.school}).toArray();
 
+
+        // earlier implementation, finding based on author id and recipe id, the thought was that we send up all the arrays as json
+        // but saw a better/easier solution
 
         /*
         console.log(schoolAnnouncement)

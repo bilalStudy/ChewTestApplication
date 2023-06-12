@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity} fr
 import {announcementApi} from "../api/announcementApi";
 import {AuthContext} from "../context/AuthContext";
 import {recipeApi} from "../api/recipeApi";
-import { useNavigation } from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 //import {recipiesName} from "../MainContainer";
 
 
@@ -16,21 +16,22 @@ const AnnouncementScreen = () => {
     const [schoolAnnouncements, setSchoolAnnouncements] = useState([])
 
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
-        (async () => {
+        if(isFocused)(async () => {
             //setAnnouncements(await announcementApi.listAll())
             setSchoolAnnouncements(await announcementApi.findSchoolBased(currentUser.school));
             setClassAnnouncements(await announcementApi.findSchoolClassBased(currentUser.school, currentUser.gradeclass))
 
 
         })();
-    }, []);
+    }, [isFocused]);
 
     const handleItemPress = (item) => {
         import('../MainContainer').then((module) => {
-            const MainContainer = module.default;4
-            navigation.navigate('Recipies', { selectedData: item.recipeId });
+            const MainContainer = module.default;
+            navigation.navigate('Recipies', { selectedData: item.recipeName });
         });
     };
 

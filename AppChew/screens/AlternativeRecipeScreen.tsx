@@ -59,6 +59,7 @@ const AlternativeRecipeScreen = () => {
         }
     }, [route.params]);
 
+
     useEffect(() => {
         if (!isFocused) {
 
@@ -68,6 +69,8 @@ const AlternativeRecipeScreen = () => {
 
         }
     }, [isFocused]);
+
+
 
 
 
