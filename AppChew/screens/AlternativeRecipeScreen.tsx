@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     recipeList: {
-        alignItems: "flex-start",
+        alignItems: "center",
         paddingHorizontal: 8,
     },
     recipeItem: {
