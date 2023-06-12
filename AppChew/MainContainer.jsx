@@ -10,10 +10,10 @@ import AlternativeRecipeScreen from './screens/AlternativeRecipeScreen';
 import EventScreen from './screens/EventScreen';
 import AnnouncementScreen from './screens/AnnouncementScreen';
 
-export const homeName = 'Announcements';
-export const quizName = 'Quizes';
-export const recipiesName = 'Recipies';
-export const profileName = 'Profile';
+const homeName = 'Announcements';
+const quizName = 'Quizes';
+const recipiesName = 'Recipies';
+const profileName = 'Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,7 +49,7 @@ export default function MainContainer() {
           tabBarStyle: [
             {
               padding: 10,
-              height: 70,
+              height: '10%',
               display: 'flex',
             },
             null,
@@ -63,8 +63,8 @@ export default function MainContainer() {
                     style: {padding: 10, height: 70}
                 }}*/
       >
-        <Tab.Screen name={homeName} component={AnnouncementScreen} />
-        <Tab.Screen name={quizName} component={EventScreen} />
+        <Tab.Screen name={homeName} component={EventScreen} />
+        <Tab.Screen name={quizName} component={QuizScreen} />
         <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen} />
         <Tab.Screen name={profileName} component={Profile} />
       </Tab.Navigator>
