@@ -69,6 +69,7 @@ const AlternativeRecipeScreen = () => {
     </TouchableOpacity>
   );
 
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
