@@ -49,7 +49,7 @@ export default function MainContainer() {
           tabBarStyle: [
             {
               padding: 10,
-              height: 70,
+              height: '10%',
               display: 'flex',
             },
             null,
