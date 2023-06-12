@@ -4,6 +4,7 @@ import {announcementApi} from "../api/announcementApi";
 import {AuthContext} from "../context/AuthContext";
 import {recipeApi} from "../api/recipeApi";
 import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {Card} from "react-native-paper";
 //import {recipiesName} from "../MainContainer";
 
 
@@ -36,9 +37,18 @@ const AnnouncementScreen = () => {
     };
 
     const renderItem = ({ item }) => (
+        <View style={styles.container}>
         <TouchableOpacity onPress={() => handleItemPress(item)}>
-            <Text>{item.title}</Text>
+        <Card style={styles.card}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+            <Text style={styles.recipeName}>Oppskrift: {item.recipeName}</Text>
+            <Text style={styles.authorName}>Lærer: {item.authorName}</Text>
+            <Text style={styles.published}>Publisert: {item.startTime}</Text>
+            <Text style={styles.deadline}>Frist: {item.endTime}</Text>
+        </Card>
         </TouchableOpacity>
+        </View>
     );
 
 
@@ -55,7 +65,7 @@ const AnnouncementScreen = () => {
         if (userRole === 'teacher') {
             return <SchoolAnnouncements />;
         } else if (userRole === 'pupil') {
-            return <ClassAnnouncements/>;
+            return <ClassAnnouncements />;
         } else {
             return <Text>You either dont have access to this, or we havent had the time to implement this for you. sorry!</Text>
         }
@@ -88,3 +98,53 @@ const AnnouncementScreen = () => {
 }
 
 export default AnnouncementScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#ecf0f1',
+    },
+    card: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 6,
+        shadowOpacity: 0.26,
+        elevation: 8,
+        padding: 20,
+        borderRadius: 10,
+        height: 225,
+        width: '100%',
+        backgroundColor: '#0ad5b8',
+        justifyContent: 'flex-start', //Centered vertically
+        alignItems: 'flex-start', // Centered horizontally
+    },
+    item: {
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        paddingBottom: 5,
+    },
+    description: {
+        fontSize: 18,
+        paddingBottom: 5,
+    },
+    recipeName: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        justifyContent: 'flex-end',
+        paddingBottom: 5,
+    },
+    authorName: {
+    },
+    published: {
+    },
+    deadline: {
+    }
+
+});
