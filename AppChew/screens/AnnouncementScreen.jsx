@@ -41,28 +41,50 @@ const AnnouncementScreen = () => {
         </TouchableOpacity>
     );
 
-    return (
+
+    function SchoolAnnouncements(props) {
+        return <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+    }
+
+    function ClassAnnouncements(props) {
+        return <FlatList data={classAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+    }
+
+    function AnnouncementsBasedOnRole(props) {
+        const userRole = currentUser.role;
+        if (userRole === 'teacher') {
+            return <SchoolAnnouncements />;
+        } else if (userRole === 'pupil') {
+            return <ClassAnnouncements/>;
+        } else {
+            return <Text>You either dont have access to this, or we havent had the time to implement this for you. sorry!</Text>
+        }
+    }
+
+    /*
+    render() {
+        const userRole = currentUser.role;
+        if (userRole === 'teacher') {
+            <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+        } else if (userRole === 'pupil') {
+            <FlatList data={classAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+        }
+
+            return (
         <View>
-            <Text>skolen sin announcement starter her</Text>
-            <Text></Text>
-            {classAnnouncements.map((a) => (
-                <View key={a._id}>
-                    <Text>{a.title} ewohnioenwfweon {a.description} </Text>
-                </View>
-            ))}
-            <Text></Text>
-            <Text>klasse sin announcement starter her</Text>
-            <Text></Text>
-            {schoolAnnouncements.map((b) => (
-                <View key={b._id}>
-                    <Text>{b.title} ewohnioenwfweon {b.description} </Text>
-                </View>
-            ))}
-            <Text></Text>
+            {currentUser.role}
             <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
 
         </View>
     );
+
+     */
+
+        return (
+            <View>
+                <AnnouncementsBasedOnRole />
+            </View>
+        );
 }
 
 export default AnnouncementScreen;
