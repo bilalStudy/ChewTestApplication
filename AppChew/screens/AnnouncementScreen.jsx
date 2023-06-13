@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity} from 'react-native';
 import {announcementApi} from "../api/announcementApi";
 import {AuthContext} from "../context/AuthContext";
@@ -9,7 +9,7 @@ import {Card} from "react-native-paper";
 
 
 
-const AnnouncementScreen = () => {
+const AnnouncementScreen = ({Event}) => {
     const {currentUser} = useContext(AuthContext);
     const [announcements, setAnnouncements] = useState([])
     //const [recipes, setRecipes] = useState([])
@@ -52,8 +52,15 @@ const AnnouncementScreen = () => {
     );
 
 
+    const handleEventPress = () => {
+        navigation.navigate('Event')
+    };
+
     function SchoolAnnouncements(props) {
-        return <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+        return (<View>
+                    <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
+                <TouchableOpacity style={styles.gangbutton} onPress={handleEventPress}><Text>Press here</Text></TouchableOpacity>
+                </View>);
     }
 
     function ClassAnnouncements(props) {
@@ -105,6 +112,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
         backgroundColor: '#ecf0f1',
+    },
+    gangbutton: {
+        position: "absolute",
+        backgroundColor: "orange",
     },
     card: {
         shadowColor: 'black',
