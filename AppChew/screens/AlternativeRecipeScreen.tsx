@@ -60,6 +60,20 @@ const AlternativeRecipeScreen = () => {
     </TouchableOpacity>
   );
 
+  const renderProcedureSteps = (procedure: string) => {
+    const steps = procedure.split(',');
+    return (
+      <View style={styles.stepsContainer}>
+        {steps.map((step, index) => (
+          <View key={index} style={styles.stepContainer}>
+            <Text style={styles.stepNumber}>{index + 1}</Text>
+            <Text style={styles.step}>{step.trim()}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -144,7 +158,12 @@ const AlternativeRecipeScreen = () => {
                 <Text>Nutrition: {selectedRecipe.nutrition}</Text>
               </View>
             )}
-            {showProcedure && <Text>Guide: {selectedRecipe.guide}</Text>}
+            {showProcedure && (
+              <View>
+                <Text style={styles.sectionTitle}>Procedure:</Text>
+                {renderProcedureSteps(selectedRecipe.guide)}
+              </View>
+            )}
             <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
@@ -224,11 +243,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   selectedRecipeName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'black',
-    paddingHorizontal: 10,
-  },
+  fontSize: 30,
+  fontWeight: 'bold',
+  color: 'black',
+  paddingHorizontal: 10,
+  textShadowColor: 'rgba(0, 0, 0, 0.4)',
+  textShadowOffset: { width: 2, height: 2 },
+  textShadowRadius: 5,
+  textDecorationLine: 'underline',
+},
+
   closeButton: {
     position: 'absolute',
     bottom: 16,
@@ -259,6 +283,33 @@ const styles = StyleSheet.create({
   },
   halfButton: {
     width: '45%',
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  stepsContainer: {
+    marginTop: 10,
+  },
+  stepContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  stepNumber: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+    backgroundColor: '#F86D47',
+    color: 'white',
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  step: {
+    fontSize: 18,
+    flex: 1,
   },
 });
 
