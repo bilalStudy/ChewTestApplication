@@ -59,7 +59,7 @@ const AnnouncementScreen = ({Event}) => {
     function SchoolAnnouncements(props) {
         return (<View>
                     <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
-                <TouchableOpacity style={styles.gangbutton} onPress={handleEventPress}><Text>Press here</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.gangbutton} onPress={handleEventPress}><Text>Create event</Text></TouchableOpacity>
                 </View>);
     }
 
@@ -114,8 +114,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#ecf0f1',
     },
     gangbutton: {
-        position: "absolute",
-        backgroundColor: "orange",
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'orange',
+        padding: 10,
+        margin: 10,
+        borderRadius: 5,
     },
     card: {
         shadowColor: 'black',
