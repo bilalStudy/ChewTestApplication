@@ -17,15 +17,16 @@ const RecipeSearchScreen = () => {
       const allRecipes = await recipeApi.listAll();
 
       // Filter recipes based on searchTerm
-      const filteredRecipes = allRecipes.filter((recipe: { dishname: string }) => {
-        if (!recipe.dishname) {
-          return false;
+      const filteredRecipes = allRecipes.filter(
+        (recipe: { dishname: string }) => {
+          if (!recipe.dishname) {
+            return false;
+          }
+          return recipe.dishname
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
         }
-        return recipe.dishname
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-      });
-      
+      );
 
       setRecipes(filteredRecipes);
     })();
@@ -57,34 +58,38 @@ const RecipeSearchScreen = () => {
         Search Result
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-      {recipes
-        .filter((x) => x.dishname && x.dishname.toLowerCase().includes(searchTerm.toLowerCase()))
-        .map((x) => (
-          <View key={x.id} style={{ width: '50%', padding: 10 }}>
-            <View
-              style={{
-                padding: 10,
-                backgroundColor: 'white',
-                borderColor: '#ccc',
-                borderWidth: 1,
-                borderRadius: 10,
-                alignItems: 'center',
-              }}
-            >
-              <Image
+        {recipes
+          .filter(
+            (x) =>
+              x.dishname &&
+              x.dishname.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((x) => (
+            <View key={x.id} style={{ width: '50%', padding: 10 }}>
+              <View
                 style={{
-                  resizeMode: 'contain',
-                  width: '100%', // adjust this value as needed
-                  height: 150, // you may need to adjust this
+                  padding: 10,
+                  backgroundColor: 'white',
+                  borderColor: '#ccc',
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  alignItems: 'center',
                 }}
-                source={{
-                  uri: `${x.picture}`,
-                }}
-              />
-              {x.dishname && <Text>Name of Dish: {x.dishname}</Text>}
+              >
+                <Image
+                  style={{
+                    resizeMode: 'contain',
+                    width: '100%', // adjust this value as needed
+                    height: 150, // you may need to adjust this
+                  }}
+                  source={{
+                    uri: `${x.picture}`,
+                  }}
+                />
+                {x.dishname && <Text>Name of Dish: {x.dishname}</Text>}
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </View>
     </View>
   );

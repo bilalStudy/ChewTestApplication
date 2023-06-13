@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  Image,
+  ImageBackground,
   TouchableOpacity,
   Modal,
   StyleSheet,
@@ -30,12 +30,12 @@ const AlternativeRecipeScreen = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showIngredients, setShowIngredients] = useState(false);
+  const [showProcedure, setShowProcedure] = useState(false);
 
   useEffect(() => {
     (async () => {
       const allRecipes = await recipeApi.listAll();
-
-      // Filter recipes based on searchTerm
       const filteredRecipes = allRecipes.filter(
         (recipe: { dishname: string }) => {
           return recipe.dishname
@@ -49,6 +49,8 @@ const AlternativeRecipeScreen = () => {
 
   const handleRecipePress = (recipe: Recipe) => {
     setSelectedRecipe(recipe);
+    setShowIngredients(true);
+    setShowProcedure(false);
   };
 
   const closeModal = () => {
@@ -64,8 +66,13 @@ const AlternativeRecipeScreen = () => {
       style={styles.recipeItem}
       onPress={() => handleRecipePress(item)}
     >
-      <Image style={styles.recipeImage} source={{ uri: item.picture }} />
-      <Text style={styles.recipeName}>{item.dishname}</Text>
+      <ImageBackground
+        style={styles.recipeImageBackground}
+        source={{ uri: item.picture }}
+      >
+        <View style={styles.imageOverlay} />
+        <Text style={styles.recipeName}>{item.dishname}</Text>
+      </ImageBackground>
     </TouchableOpacity>
   );
 
@@ -78,9 +85,7 @@ const AlternativeRecipeScreen = () => {
           placeholder="Search recipe"
         />
       </View>
-      <Text style={{ marginLeft: 20, fontSize: 20, marginBottom: 10 }}>
-        Search Result
-      </Text>
+      <Text style={styles.title}>Search Result</Text>
       <FlatList
         data={recipes}
         renderItem={renderRecipeItem}
@@ -91,19 +96,77 @@ const AlternativeRecipeScreen = () => {
       <Modal visible={selectedRecipe !== null} onRequestClose={closeModal}>
         {selectedRecipe && (
           <View style={styles.modalContainer}>
-            <Image
-              style={styles.selectedRecipeImage}
+            <ImageBackground
+              style={styles.selectedRecipeImageBackground}
               source={{ uri: selectedRecipe.picture }}
-            />
-            <Text>{selectedRecipe.dishname}</Text>
-            <Text>Guide: {selectedRecipe.guide}</Text>
-            <Text>Description: {selectedRecipe.description}</Text>
-            <Text>Nutrition: {selectedRecipe.nutrition}</Text>
-            <Text>Allergens: {selectedRecipe.allergens}</Text>
-            <Text>Ingredients: {selectedRecipe.ingredients}</Text>
-            <Text>Kitchen Tools: {selectedRecipe.kitchentools}</Text>
-            <Text>Category: {selectedRecipe.category}</Text>
-            <Text>Culture: {selectedRecipe.culture}</Text>
+            ></ImageBackground>
+            <View
+              style={{
+                flexDirection: 'row',
+                padding: 10,
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text style={styles.selectedRecipeName}>
+                {selectedRecipe.dishname}
+              </Text>
+              <Text>(13k Reviews)</Text>
+            </View>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  styles.halfButton,
+                  {
+                    backgroundColor: showIngredients
+                      ? '#F86D47'
+                      : 'transparent',
+                  },
+                ]}
+                onPress={() => {
+                  setShowIngredients(!showIngredients);
+                  setShowProcedure(false);
+                }}
+              >
+                <Text
+                  style={[
+                    styles.buttonText,
+                    { color: showIngredients ? 'white' : '#F86D47' },
+                  ]}
+                >
+                  Ingredients
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  styles.halfButton,
+                  {
+                    backgroundColor: showProcedure ? '#F86D47' : 'transparent',
+                  },
+                ]}
+                onPress={() => {
+                  setShowProcedure(!showProcedure);
+                  setShowIngredients(false);
+                }}
+              >
+                <Text
+                  style={[
+                    styles.buttonText,
+                    { color: showProcedure ? 'white' : '#F86D47' },
+                  ]}
+                >
+                  Procedure
+                </Text>
+              </TouchableOpacity>
+            </View>
+            {showIngredients && (
+              <View>
+                <Text>Ingredients: {selectedRecipe.ingredients}</Text>
+                <Text>Nutrition: {selectedRecipe.nutrition}</Text>
+              </View>
+            )}
+            {showProcedure && <Text>Guide: {selectedRecipe.guide}</Text>}
             <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
@@ -126,47 +189,62 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
   },
-  box: {
-    backgroundColor: '#F86D47',
-    width: 40,
-    height: 40,
-    borderRadius: 10,
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    marginLeft: 20,
   },
   recipeList: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingHorizontal: 8,
   },
   recipeItem: {
     width: itemWidth,
     margin: 8,
+    borderRadius: 8,
+    overflow: 'hidden',
   },
-  recipeImage: {
+  recipeImageBackground: {
     resizeMode: 'cover',
     width: '100%',
     height: 200,
-    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '30%',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   recipeName: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 8,
-    textAlign: 'center',
+    color: 'white',
+    marginTop: '65%',
+    paddingHorizontal: 10,
+    zIndex: 1,
   },
   modalContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
+    padding: 10,
+    marginTop: '15%',
   },
-  selectedRecipeImage: {
-    resizeMode: 'contain',
+  selectedRecipeImageBackground: {
+    resizeMode: 'cover',
     width: '100%',
-    height: '50%',
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedRecipeName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    paddingHorizontal: 10,
   },
   closeButton: {
     position: 'absolute',
@@ -174,10 +252,30 @@ const styles = StyleSheet.create({
     left: 16,
     padding: 10,
     backgroundColor: 'orange',
+    borderRadius: 15,
   },
   closeButtonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  button: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#F86D47',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: '20%',
+    marginBottom: '5%',
+  },
+  halfButton: {
+    width: '45%',
   },
 });
 
