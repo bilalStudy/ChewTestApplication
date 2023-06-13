@@ -14,6 +14,7 @@ import {AuthContext} from "./context/AuthContext";
 import {Text, View} from "react-native";
 import {Screen} from "react-native-screens";
 
+
 export const homeName = 'Announcements';
 export const quizName = 'Quizes';
 export const recipiesName = 'Recipies';
