@@ -11,20 +11,7 @@ import {
 } from 'react-native';
 import { recipeApi } from '../api/recipeApi';
 import TextInputWithIcon from './TextInputWithIcon';
-
-interface Recipe {
-  id: string;
-  dishname: string;
-  picture: string;
-  guide: string;
-  description: string;
-  nutrition: string;
-  allergens: string;
-  ingredients: string;
-  kitchentools: string;
-  category: string;
-  culture: string;
-}
+import Recipe from '../interfaces/IRecipe';
 
 const AlternativeRecipeScreen = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -34,17 +21,14 @@ const AlternativeRecipeScreen = () => {
   const [showProcedure, setShowProcedure] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    const fetchRecipes = async () => {
       const allRecipes = await recipeApi.listAll();
-      const filteredRecipes = allRecipes.filter(
-        (recipe: { dishname: string }) => {
-          return recipe.dishname
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
-        }
+      const filteredRecipes = allRecipes.filter((recipe: Recipe) =>
+        recipe.dishname.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setRecipes(filteredRecipes);
-    })();
+    };
+    fetchRecipes();
   }, [searchTerm]);
 
   const handleRecipePress = (recipe: Recipe) => {
@@ -100,13 +84,7 @@ const AlternativeRecipeScreen = () => {
               style={styles.selectedRecipeImageBackground}
               source={{ uri: selectedRecipe.picture }}
             ></ImageBackground>
-            <View
-              style={{
-                flexDirection: 'row',
-                padding: 10,
-                justifyContent: 'space-between',
-              }}
-            >
+            <View style={styles.recipeInfoContainer}>
               <Text style={styles.selectedRecipeName}>
                 {selectedRecipe.dishname}
               </Text>
@@ -239,6 +217,11 @@ const styles = StyleSheet.create({
     height: 200,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  recipeInfoContainer: {
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'space-between',
   },
   selectedRecipeName: {
     fontSize: 24,
