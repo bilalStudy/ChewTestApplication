@@ -25,8 +25,8 @@ export const announcementApi = {
                        endTime,
                        school,
                        schoolClass,
-                       recipeId,
-                       authorId
+                       recipeName,
+                       authorName
                    }) => {
         const res = await fetch(`${baseUrl}/api/announcement`, {
             method: 'POST',
@@ -40,8 +40,8 @@ export const announcementApi = {
                 endTime,
                 school,
                 schoolClass,
-                recipeId,
-                authorId
+                recipeName,
+                authorName
             }),
         });
 

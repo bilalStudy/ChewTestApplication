@@ -1,9 +1,22 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import {
+  TextInput,
+  TextInputProps,
+  View,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ITextInputWithIconProps from '../interfaces/ITextInputWithIconProps';
 
-const TextInputWithIcon: React.FC<ITextInputWithIconProps> = ({
+interface TextInputWithIconProps extends TextInputProps {
+  icon: string;
+  iconSize?: number;
+  iconColor?: string;
+  containerStyle?: StyleProp<ViewStyle>;
+  borderColor?: string;
+}
+
+const TextInputWithIcon: React.FC<TextInputWithIconProps> = ({
   icon,
   iconSize = 20,
   iconColor = '#000',
@@ -16,7 +29,7 @@ const TextInputWithIcon: React.FC<ITextInputWithIconProps> = ({
       style={[
         {
           height: 40,
-          width: '100%',
+          width: '65%',
           flexDirection: 'row',
           alignItems: 'center',
           borderWidth: 1,

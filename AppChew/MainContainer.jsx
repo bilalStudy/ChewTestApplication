@@ -9,15 +9,39 @@ import RecipiesScreen from './screens/RecipiesScreen';
 import AlternativeRecipeScreen from './screens/AlternativeRecipeScreen';
 import EventScreen from './screens/EventScreen';
 import AnnouncementScreen from './screens/AnnouncementScreen';
+import React, {useContext} from "react";
+import {AuthContext} from "./context/AuthContext";
+import {Text, View} from "react-native";
+import {Screen} from "react-native-screens";
 
-const homeName = 'Announcements';
-const quizName = 'Quizes';
-const recipiesName = 'Recipies';
-const profileName = 'Profile';
+export const homeName = 'Announcements';
+export const quizName = 'Quizes';
+export const recipiesName = 'Recipies';
+export const profileName = 'Profile';
+export const eventName = 'Event';
 
 const Tab = createBottomTabNavigator();
 
 export default function MainContainer() {
+    const {currentUser} = useContext(AuthContext);
+
+    let teacher = currentUser.role === 'teacher';
+
+
+    let pupil = currentUser.role === 'pupil';
+
+    /*
+    function EventScreenForTeacher(props) {
+        if (teacher) {
+            return (<Tab.Screen name={eventName} component={EventScreen} />);
+        } else if (pupil) {
+            return null;
+        }
+    }
+
+     */
+
+
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -35,6 +59,8 @@ export default function MainContainer() {
               iconName = focused ? 'restaurant' : 'restaurant-outline';
             } else if (rn === profileName) {
               iconName = focused ? 'happy' : 'happy-outline';
+            } else if (rn === eventName) {
+                iconName = focused ? 'add' : 'add-outline';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -49,7 +75,7 @@ export default function MainContainer() {
           tabBarStyle: [
             {
               padding: 10,
-              height: '10%',
+              height: 70,
               display: 'flex',
             },
             null,
@@ -63,11 +89,13 @@ export default function MainContainer() {
                     style: {padding: 10, height: 70}
                 }}*/
       >
-        <Tab.Screen name={homeName} component={EventScreen} />
+        <Tab.Screen name={homeName} component={AnnouncementScreen} />
+          { teacher ? <Tab.Screen name={eventName} component={EventScreen}/> : null}
         <Tab.Screen name={quizName} component={QuizScreen} />
         <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen} />
         <Tab.Screen name={profileName} component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
+
   );
 }

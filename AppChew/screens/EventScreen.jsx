@@ -18,8 +18,8 @@ const EventScreen = () => {
     const [endTime, setEndTime] = useState('');
     const [school, setSchool] = useState('');
     const [schoolClass, setSchoolClass] = useState('');
-    const [recipeId, setRecipeId] = useState('');
-    const [authorId, setAuthorId] = useState('');
+    const [recipeName, setRecipeName] = useState('');
+    const [authorName, setAuthorName] = useState('');
 
 
     useEffect(() => {
@@ -39,13 +39,13 @@ const EventScreen = () => {
 
 
     const handleEvent = async () => {
-        setAuthorId(currentUser._id)
+        setAuthorName(currentUser._id)
         setSchool(currentUser.school)
-        setRecipeId(recipe)
+        setRecipeName(recipe)
 
         const school = currentUser.school;
-        const authorId = currentUser._id;
-        const recipeId = recipe;
+        const authorName = currentUser.fullname;
+        const recipeName = recipe;
 
         console.log(recipes)
         console.log(title)
@@ -54,8 +54,8 @@ const EventScreen = () => {
         console.log(endTime)
         console.log(school)
         console.log(schoolClass)
-        console.log(recipeId)
-        console.log(authorId)
+        console.log(recipeName)
+        console.log(authorName)
 
         const result = await announcementApi.insert({
             title,
@@ -64,8 +64,8 @@ const EventScreen = () => {
             endTime,
             school,
             schoolClass,
-            recipeId,
-            authorId
+            recipeName,
+            authorName
 
         });
         if (result) {
@@ -147,8 +147,9 @@ const EventScreen = () => {
                             onSelect={() => alert(recipe)}
                             setSelected={setRecipe}
                             data={recipes}
-                            save={"key"}
+                            save={"value"}
                 />
+
 
                 <Text>{recipe} and {recipe.key}{recipes.value}</Text>
                 <TouchableOpacity onPress={handleEvent} style={styles.button}>
