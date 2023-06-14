@@ -5,6 +5,7 @@ import {AuthContext} from "../context/AuthContext";
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Card} from "react-native-paper";
 //import {recipiesName} from "../MainContainer";
+import {Calendar, LocaleConfig} from 'react-native-calendars';
 
 
 
@@ -14,6 +15,8 @@ const AnnouncementScreen = ({Event}) => {
     //const [recipes, setRecipes] = useState([])
     const [classAnnouncements, setClassAnnouncements] = useState([])
     const [schoolAnnouncements, setSchoolAnnouncements] = useState([])
+    const [selected, setSelected] = useState('');
+
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -98,6 +101,20 @@ const AnnouncementScreen = ({Event}) => {
 
         return (
             <View>
+                <Calendar
+                    onDayPress={day => {
+                        setSelected(day.dateString);
+                    }}
+                    markedDates={{
+                        [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+                    }}
+                    current={'2023-06-14'}
+                    style={{
+                        borderWidth: 1,
+                        borderColor: 'gray',
+                        height: 350
+                    }}
+                />
                 <AnnouncementsBasedOnRole />
             </View>
         );
