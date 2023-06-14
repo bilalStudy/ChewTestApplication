@@ -1,10 +1,9 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import {
   Image,
   Alert,
-  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TextInput,
@@ -20,7 +19,6 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
-
   const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
@@ -28,7 +26,6 @@ const LoginScreen = () => {
     if (result) {
       console.log('logged in');
       login(result.user);
-      // @ts-ignore
       navigation.navigate('Home');
     } else {
       Alert.alert('Error', 'Invalid username or password');
@@ -55,48 +52,47 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View></View>
-      <Text style={styles.title}> Hello,{'\n'} Welcome Back </Text>
+      <View style={styles.imageContainer}>
+        <Image
+          source={require('../assets/chewlogo1.jpg')}
+          style={styles.image}
+        />
+      </View>
+      <View>
+        <Text style={styles.title}>
+          <Text style={styles.boldText}> Hello,</Text>
+          {'\n'} <Text style={styles.lightBoldText}> Welcome Back!</Text>
+        </Text>
+      </View>
 
       <Text style={styles.text}>School mail / Username</Text>
-      <View style={styles.itemCenter}>
+      <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Username"
+          placeholder="Enter Username"
           value={username}
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={setUsername}
         />
       </View>
 
       <Text style={styles.text}>Enter Password</Text>
-      <View style={styles.itemCenter}>
+      <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="Enter Password"
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={setPassword}
           secureTextEntry
         />
       </View>
       <TouchableOpacity onPress={() => {}}>
-        <Text style={styles.innerText}>Forgot Password?</Text>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
-      <View style={styles.itemCenter}>
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text style={styles.buttonText}>Sign in</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={handleLogin} style={styles.button}>
+        <Text style={styles.buttonText}>Sign in</Text>
+      </TouchableOpacity>
 
-      <Text
-        style={{
-          textAlign: 'center',
-          color: '#666',
-          marginBottom: 10,
-          marginTop: 10,
-        }}
-      >
-        --------- Or sign in With ---------
-      </Text>
+      <Text style={styles.orSignInWithText}>──── Or sign in With ────</Text>
 
       <View style={styles.socialIconsContainer}>
         <TouchableOpacity onPress={handleGmailLogin} style={styles.socialIcon}>
@@ -113,14 +109,12 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <Text style={{ textAlign: 'center', fontSize: 15, marginTop: 20 }}>
-        Don’t have an account? <Text style={{ color: 'orange' }}>Sign up</Text>
+      <Text style={styles.createAccountText}>
+        Don’t have an account? <Text style={styles.signUpText}>Sign up</Text>
       </Text>
     </View>
   );
 };
-
-export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -129,36 +123,69 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    fontSize: 24,
+    marginBottom: '15%',
+  },
+  imageContainer: {
+    alignItems: 'flex-end',
+  },
+  image: {
+    width: '30%',
+    height: 100,
+    resizeMode: 'contain',
+  },
+  boldText: {
+    fontStyle: 'normal',
+    fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 50,
+  },
+  lightBoldText: {
+    fontSize: 30,
+    fontWeight: 'normal',
+    color: 'black',
+  },
+  text: {
+    marginBottom: 5,
+    marginLeft: '5%',
+  },
+  inputContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
   },
   input: {
-    height: 40,
-    width: 300,
-    borderColor: 'gray',
+    height: 60,
+    width: '90%',
+    borderColor: '#D9D9D9',
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 15,
     paddingHorizontal: 15,
   },
   button: {
-    height: 40,
-    width: 300,
+    height: 60,
+    width: '90%',
     marginTop: 20,
     backgroundColor: '#F86D47',
-    paddingVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 5,
     marginBottom: 20,
+    alignSelf: 'center',
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+    alignSelf: 'center',
   },
-  innerText: {
+  forgotPasswordText: {
     color: 'orange',
-    marginLeft: 15,
+    marginLeft: '5%',
+  },
+  orSignInWithText: {
+    textAlign: 'center',
+    color: '#666',
+    marginBottom: 10,
+    marginTop: 10,
   },
   socialIconsContainer: {
     flexDirection: 'row',
@@ -181,14 +208,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
   },
-  text: {
-    textAlign: 'left',
-    marginBottom: 5,
-    marginLeft: 15,
+  createAccountText: {
+    textAlign: 'center',
+    fontSize: 15,
+    marginTop: 20,
   },
-  itemCenter: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
+  signUpText: {
+    color: 'orange',
   },
 });
+
+export default LoginScreen;
