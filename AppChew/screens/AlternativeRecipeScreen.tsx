@@ -8,11 +8,12 @@ import {
   StyleSheet,
   FlatList,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import { recipeApi } from '../api/recipeApi';
 import TextInputWithIcon from './TextInputWithIcon';
 import Recipe from '../interfaces/IRecipe';
-import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 
 const AlternativeRecipeScreen = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -42,42 +43,28 @@ const AlternativeRecipeScreen = () => {
 
       // Filter recipes based on searchTerm
       const filteredRecipes = allRecipes.filter(
-          (recipe: { dishname: string }) => {
-            return recipe.dishname
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-          }
+        (recipe: { dishname: string }) => {
+          return recipe.dishname
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
+        }
       );
       setRecipes(filteredRecipes);
     })();
   }, [searchTerm]);
 
-
-
   useEffect(() => {
     if (isFocused && route.params) {
-
-      // @ts-ignore
       const { selectedData } = route.params || {};
       setSearchTerm(selectedData || '');
-      console.log(selectedData)
-
     }
   }, [route.params]);
 
-
   useEffect(() => {
     if (!isFocused) {
-
-      // @ts-ignore
-      const { selectedData } = {};
-      setSearchTerm( '');
-      console.log(selectedData)
-
+      setSearchTerm('');
     }
   }, [isFocused]);
-
-
 
   const handleRecipePress = (recipe: Recipe) => {
     setSelectedRecipe(recipe);
@@ -114,7 +101,9 @@ const AlternativeRecipeScreen = () => {
       <View style={styles.stepsContainer}>
         {steps.map((step, index) => (
           <View key={index} style={styles.stepContainer}>
-            <Text style={styles.stepNumber}>{index + 1}</Text>
+            <View style={styles.stepNumberBox}>
+              <Text style={styles.stepNumberText}>{index + 1}</Text>
+            </View>
             <Text style={styles.step}>{step.trim()}</Text>
           </View>
         ))}
@@ -126,7 +115,7 @@ const AlternativeRecipeScreen = () => {
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
         <TextInputWithIcon
-            value={searchTerm}
+          value={searchTerm}
           onChangeText={handleSearch}
           icon="search"
           placeholder="Search recipe"
@@ -142,7 +131,7 @@ const AlternativeRecipeScreen = () => {
       />
       <Modal visible={selectedRecipe !== null} onRequestClose={closeModal}>
         {selectedRecipe && (
-          <View style={styles.modalContainer}>
+          <ScrollView contentContainerStyle={styles.modalContainer}>
             <ImageBackground
               style={styles.selectedRecipeImageBackground}
               source={{ uri: selectedRecipe.picture }}
@@ -216,7 +205,7 @@ const AlternativeRecipeScreen = () => {
             <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         )}
       </Modal>
     </View>
@@ -263,102 +252,101 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: '100%',
-    height: '30%',
+    height: '35%',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   recipeName: {
-    fontSize: 20,
-    fontWeight: 'bold',
     color: 'white',
+    fontSize: 18,
     marginTop: '65%',
-    paddingHorizontal: 10,
-    zIndex: 1,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+    marginBottom: 8,
   },
   modalContainer: {
-    flex: 1,
-    padding: 10,
-    marginTop: '15%',
+    flexGrow: 1,
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    backgroundColor: 'white',
   },
   selectedRecipeImageBackground: {
     resizeMode: 'cover',
     width: '100%',
     height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginBottom: 16,
   },
   recipeInfoContainer: {
     flexDirection: 'row',
-    padding: 10,
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   selectedRecipeName: {
-  fontSize: 30,
-  fontWeight: 'bold',
-  color: 'black',
-  paddingHorizontal: 10,
-  textShadowColor: 'rgba(0, 0, 0, 0.4)',
-  textShadowOffset: { width: 2, height: 2 },
-  textShadowRadius: 5,
-  textDecorationLine: 'underline',
-},
-
-  closeButton: {
-    position: 'absolute',
-    bottom: 16,
-    left: 16,
-    padding: 10,
-    backgroundColor: 'orange',
-    borderRadius: 15,
-  },
-  closeButtonText: {
-    color: 'white',
+    fontSize: 24,
     fontWeight: 'bold',
-  },
-  button: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: '#F86D47',
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
   },
   buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: '20%',
-    marginBottom: '5%',
+    marginBottom: 16,
+  },
+  button: {
+    flex: 1,
+    paddingVertical: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
   },
   halfButton: {
-    width: '45%',
+    marginHorizontal: 4,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  closeButton: {
+    backgroundColor: '#F86D47',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginTop: '10%'
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   stepsContainer: {
-    marginTop: 10,
+    marginBottom: 16,
   },
   stepContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
+    alignItems: 'flex-start',
+    marginBottom: 8,
   },
-  stepNumber: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginRight: 10,
-    backgroundColor: '#F86D47',
+  stepNumberBox: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgb(248, 109, 71)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  stepNumberText: {
     color: 'white',
-    borderRadius: 15,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   step: {
-    fontSize: 18,
     flex: 1,
+    fontSize: 16,
   },
 });
 
