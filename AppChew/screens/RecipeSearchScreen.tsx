@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import MainContainer from '../App';
 import { recipeApi } from '../api/recipeApi';
 import TextInputWithIcon from './TextInputWithIcon';
 

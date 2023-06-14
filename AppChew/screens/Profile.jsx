@@ -8,7 +8,7 @@ const Profile = () => {
   const navigation = useNavigation();
 
   function logout() {
-    //funker ikke enda, in progress
+    //funker ikke pga vi bruker for gammel SDK og react versjon, fikser på slutten hvis vi får tid
     navigation.navigate('Login');
   }
 

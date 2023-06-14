@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import path from "path";
 import { UserApi } from "./api/userApi.js"
 import {WebSocketServer} from "ws";
 import {RecipeApi} from "./api/recipeApi.js";

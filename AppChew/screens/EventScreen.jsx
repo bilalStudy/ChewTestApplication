@@ -3,7 +3,6 @@ import {StyleSheet, View, Text, Button, Platform, Alert, TouchableOpacity, TextI
 import 'moment-timezone'
 import {recipeApi} from "../api/recipeApi";
 import {AuthContext} from "../context/AuthContext";
-import {userApi} from "../api/userApi";
 import {announcementApi} from "../api/announcementApi";
 import {SelectList} from "react-native-dropdown-select-list";
 

@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity} from 'react-native';
 import {announcementApi} from "../api/announcementApi";
 import {AuthContext} from "../context/AuthContext";
-import {recipeApi} from "../api/recipeApi";
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Card} from "react-native-paper";
 //import {recipiesName} from "../MainContainer";
