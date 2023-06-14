@@ -1,9 +1,18 @@
 import { Platform } from 'react-native'
+import Constants from "expo-constants";
+const {manifest} = Constants;
 
+const ipv4 = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+    ? manifest.debuggerHost.split(`:`).shift().concat(`:3000`) : `http://localhost:3000`;
+
+
+// trying to change baseUrl to work for all platforms
+/*
 export const baseUrl = Platform.OS === 'android' ?
-    'http://10.0.2.2:3000' : 'http://localhost:3000';
+    'http://10.0.2.2:3000' : `http://${ipv4.toString()}` ;
 
-
+ */
+export const baseUrl = `http://${ipv4.toString()}` ;
 
 export const userApi = {
 

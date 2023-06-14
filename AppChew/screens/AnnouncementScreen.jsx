@@ -1,10 +1,11 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import {announcementApi} from "../api/announcementApi";
 import {AuthContext} from "../context/AuthContext";
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Card} from "react-native-paper";
 //import {recipiesName} from "../MainContainer";
+import {Calendar, LocaleConfig} from 'react-native-calendars';
 
 
 
@@ -14,6 +15,8 @@ const AnnouncementScreen = ({Event}) => {
     //const [recipes, setRecipes] = useState([])
     const [classAnnouncements, setClassAnnouncements] = useState([])
     const [schoolAnnouncements, setSchoolAnnouncements] = useState([])
+    const [selected, setSelected] = useState('');
+
 
     const navigation = useNavigation();
     const isFocused = useIsFocused();
@@ -55,15 +58,34 @@ const AnnouncementScreen = ({Event}) => {
         navigation.navigate('Event')
     };
 
+    function CustomCalender(props){
+        return(
+            <Calendar
+                onDayPress={day => {
+                    setSelected(day.dateString);
+                }}
+                markedDates={{
+                    [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+                }}
+                current={'2023-06-14'}
+                style={{
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    height: 350
+                }}
+            />
+        )
+    }
+
     function SchoolAnnouncements(props) {
         return (<View>
-                    <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
+                    <FlatList ListHeaderComponent={CustomCalender} data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
                 <TouchableOpacity style={styles.gangbutton} onPress={handleEventPress}><Text>Create event</Text></TouchableOpacity>
                 </View>);
     }
 
     function ClassAnnouncements(props) {
-        return <FlatList data={classAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+        return <FlatList ListHeaderComponent={CustomCalender} data={classAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
     }
 
     function AnnouncementsBasedOnRole(props) {
