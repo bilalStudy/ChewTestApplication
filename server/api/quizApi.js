@@ -1,5 +1,4 @@
 import express from "express";
-import { ObjectId } from "mongodb";
 
 export function QuizApi(db) {
   const api = express.Router();

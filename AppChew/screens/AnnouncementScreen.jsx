@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   StyleSheet,
@@ -13,6 +14,14 @@ import { AuthContext } from '../context/AuthContext';
 import { recipeApi } from '../api/recipeApi';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Card } from 'react-native-paper';
+=======
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity} from 'react-native';
+import {announcementApi} from "../api/announcementApi";
+import {AuthContext} from "../context/AuthContext";
+import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {Card} from "react-native-paper";
+>>>>>>> 1d41e59d08431af24bc2202845102d597529425c
 //import {recipiesName} from "../MainContainer";
 
 const AnnouncementScreen = ({ Event }) => {

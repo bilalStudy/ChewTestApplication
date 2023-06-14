@@ -1,18 +1,13 @@
-import HomeScreen from './screens/HomeScreen';
 import Profile from './screens/Profile';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QuizScreen from './screens/QuizScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import RecipeSearchScreen from './screens/RecipeSearchScreen';
-import RecipiesScreen from './screens/RecipiesScreen';
 import AlternativeRecipeScreen from './screens/AlternativeRecipeScreen';
 import EventScreen from './screens/EventScreen';
 import AnnouncementScreen from './screens/AnnouncementScreen';
 import React, { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
-import { Text, View } from 'react-native';
-import { Screen } from 'react-native-screens';
 
 export const homeName = 'Announcements';
 export const quizName = 'Quizes';

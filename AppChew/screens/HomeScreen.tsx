@@ -1,6 +1,5 @@
-import {AppState, StyleSheet, Text, View} from 'react-native'
-import React, {useContext, useState} from 'react'
-import MainContainer from "../App";
+import {StyleSheet, Text, View} from 'react-native'
+import React, {useContext} from 'react'
 import {AuthContext} from "../context/AuthContext";
 
 
