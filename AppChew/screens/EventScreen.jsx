@@ -69,6 +69,11 @@ const EventScreen = () => {
         });
         if (result) {
             console.log("post created")
+            setTitle('');
+            setDescription('');
+            setStartTime('');
+            setEndTime('');
+            alert('Lecture Post Created')
         } else {
             Alert.alert('Error', 'Invalid username or password');
         }
@@ -118,7 +123,7 @@ const EventScreen = () => {
                     onChangeText={text => setDescription(text)}
                 />
                 <Text>{description}</Text>
-                <Text style={styles.inputLabel}>Start Tid</Text>
+                <Text style={styles.inputLabel}>Publiserings dato</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Start Tid*"
@@ -143,7 +148,6 @@ const EventScreen = () => {
                 <Text>{schoolClass}</Text>
                 <Text style={styles.inputLabel}>Oppskrift</Text>
                 <SelectList key={recipe._id}
-                            onSelect={() => alert(recipe)}
                             setSelected={setRecipe}
                             data={recipes}
                             save={"value"}
