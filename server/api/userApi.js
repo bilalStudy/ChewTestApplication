@@ -1,9 +1,10 @@
+import bcrypt from 'bcrypt';
 import express, {request} from "express";
 import {ObjectId} from "mongodb";
 
 export function UserApi(db){
     const api = express.Router();
-
+/*
     api.post('/register', async (req, res) => {
             const {username, fullname, password, role} = req.body
 
@@ -37,31 +38,50 @@ export function UserApi(db){
                 return;
             }
 
-            const result = db.collection("users").insertOne({
-                username,
-                fullname,
-                password,
-                role,
+            bcrypt.hash(password, 10, function(err, hash) {
+                if (err) {
+                    // handle error
+                    res.sendStatus(500);
+                    return;
+                }
+            
+                const result = db.collection("users").insertOne({
+                    username,
+                    fullname,
+                    password: hash, // store the hashed password
+                    role,
+                });
+            
+                res.sendStatus(200);
             });
+            
 
             res.sendStatus(200);
         })
-    
+*/
         api.post('/login', async (req, res) => {
             const {username, password} = req.body;
-
+        
             const users = await db.collection("users")
-                .find({username: username, password: password})
+                .find({username: username})
                 .toArray();
-
+        
             if (users.length > 0){
                 const user = users[0];
-
-                res.json({
-                    cookie : user._id.toString(),
-                    user: user,
-                })
-            }else {
+        
+                bcrypt.compare(password, user.password, function(err, result) {
+                    if (result) {
+                        // Passwords match
+                        res.json({
+                            cookie : user._id.toString(),
+                            user: user,
+                        })
+                    } else {
+                        // Passwords don't match
+                        res.sendStatus(403);
+                    }
+                });
+            } else {
                 res.sendStatus(404);
             }
         })
