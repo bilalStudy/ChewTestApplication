@@ -203,42 +203,45 @@ const QuizScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    quizItem: {
-        marginTop: 10,
-        marginBottom: 10,
-        alignItems: 'center',
-    },
-    questionBox: {
-        width: '100%',
-        padding: 10,
-        backgroundColor: '#f0f0f0',
-        borderRadius: 10,
-        marginBottom: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    button: {
-        flex: 1,
-        margin: 5,
-        borderRadius: 5,
-    },
-    scoreContainer: {
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    scoreText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quizItem: {
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  questionBox: {
+    width: '100%',
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  button: {
+    flex: 1,
+    margin: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+  scoreContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  scoreText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });
+
 
 export default QuizScreen;
