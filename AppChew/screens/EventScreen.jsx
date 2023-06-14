@@ -105,8 +105,6 @@ const EventScreen = () => {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text>{currentUser._id}</Text>
-                <Text>{currentUser.school}</Text>
                 <Text style={styles.inputLabel}>Tittel</Text>
                 <TextInput
                     style={styles.input}
@@ -114,7 +112,6 @@ const EventScreen = () => {
                     value={title}
                     onChangeText={text => setTitle(text)}
                 />
-                <Text>{title}</Text>
                 <Text style={styles.inputLabel}>Beskrivelse</Text>
                 <TextInput
                     style={styles.input}
@@ -122,7 +119,6 @@ const EventScreen = () => {
                     value={description}
                     onChangeText={text => setDescription(text)}
                 />
-                <Text>{description}</Text>
                 <Text style={styles.inputLabel}>Publiserings dato</Text>
                 <TextInput
                     style={styles.input}
@@ -130,7 +126,6 @@ const EventScreen = () => {
                     value={startTime}
                     onChangeText={text => setStartTime(text)}
                 />
-                <Text>{startTime}</Text>
                 <Text style={styles.inputLabel}>Frist</Text>
                 <TextInput
                     style={styles.input}
@@ -138,14 +133,12 @@ const EventScreen = () => {
                     value={endTime}
                     onChangeText={text => setEndTime(text)}
                 />
-                <Text>{endTime}</Text>
                 <Text style={styles.inputLabel}>Klasse</Text>
                 <SelectList
                     setSelected={(val) => setSchoolClass(val)}
                     data={SchoolClassData}
                     save="value"
                 />
-                <Text>{schoolClass}</Text>
                 <Text style={styles.inputLabel}>Oppskrift</Text>
                 <SelectList key={recipe._id}
                             setSelected={setRecipe}
@@ -154,7 +147,6 @@ const EventScreen = () => {
                 />
 
 
-                <Text>{recipe} and {recipe.key}{recipes.value}</Text>
                 <TouchableOpacity onPress={handleEvent} style={styles.button}>
                     <Text style={styles.buttonText}>Create Event</Text>
                 </TouchableOpacity>
