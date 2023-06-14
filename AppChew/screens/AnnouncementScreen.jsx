@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Button, Platform, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import {announcementApi} from "../api/announcementApi";
 import {AuthContext} from "../context/AuthContext";
 import {useIsFocused, useNavigation} from '@react-navigation/native';
@@ -58,15 +58,34 @@ const AnnouncementScreen = ({Event}) => {
         navigation.navigate('Event')
     };
 
+    function CustomCalender(props){
+        return(
+            <Calendar
+                onDayPress={day => {
+                    setSelected(day.dateString);
+                }}
+                markedDates={{
+                    [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+                }}
+                current={'2023-06-14'}
+                style={{
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    height: 350
+                }}
+            />
+        )
+    }
+
     function SchoolAnnouncements(props) {
         return (<View>
-                    <FlatList data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
+                    <FlatList ListHeaderComponent={CustomCalender} data={schoolAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>
                 <TouchableOpacity style={styles.gangbutton} onPress={handleEventPress}><Text>Create event</Text></TouchableOpacity>
                 </View>);
     }
 
     function ClassAnnouncements(props) {
-        return <FlatList data={classAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
+        return <FlatList ListHeaderComponent={CustomCalender} data={classAnnouncements} renderItem={renderItem} keyExtractor={item => item._id}/>;
     }
 
     function AnnouncementsBasedOnRole(props) {
@@ -101,20 +120,6 @@ const AnnouncementScreen = ({Event}) => {
 
         return (
             <View>
-                <Calendar
-                    onDayPress={day => {
-                        setSelected(day.dateString);
-                    }}
-                    markedDates={{
-                        [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-                    }}
-                    current={'2023-06-14'}
-                    style={{
-                        borderWidth: 1,
-                        borderColor: 'gray',
-                        height: 350
-                    }}
-                />
                 <AnnouncementsBasedOnRole />
             </View>
         );
