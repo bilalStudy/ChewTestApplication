@@ -99,10 +99,8 @@ const EventScreen = () => {
     ]
 
     return (
-        <View>
+        <View style={styles.container}>
             <ScrollView>
-                <Text>{currentUser._id}</Text>
-                <Text>{currentUser.school}</Text>
                 <Text style={styles.inputLabel}>Tittel</Text>
                 <TextInput
                     style={styles.input}
@@ -151,10 +149,10 @@ const EventScreen = () => {
                 />
 
 
-                <Text>{recipe} and {recipe.key}{recipes.value}</Text>
                 <TouchableOpacity onPress={handleEvent} style={styles.button}>
                     <Text style={styles.buttonText}>Create Event</Text>
                 </TouchableOpacity>
+                <View style={styles.space}></View>
             </ScrollView>
         </View>
     );
@@ -181,15 +179,22 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        width: 300,
+        width: '98%',
         borderColor: 'gray',
         borderWidth: 1,
         borderRadius: 5,
         marginBottom: 15,
         paddingHorizontal: 15,
     },
+    space: {
+      paddingBottom: 20,
+      height: '25%',
+      width: 10,
+    },
     inputLabel: {
         marginBottom: 10,
+        fontSize: 20,
+        justifyContent: "center",
     },
     button: {
         marginTop: 20,
