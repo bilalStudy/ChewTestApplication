@@ -9,22 +9,10 @@ import {
   Image,
 } from 'react-native';
 import { listQuizzes } from '../api/quizApi';
-
-interface Question {
-  question: string;
-  answer: boolean;
-  userAnswer?: boolean;
-  answerStatus?: boolean;
-}
-
-interface QuizItem {
-  id: string;
-  quizName: string;
-  questions: Question[];
-}
+import IQuizItem from '../interfaces/IQuizItem';
 
 const QuizScreen = () => {
-  const [quizzes, setQuizzes] = useState<QuizItem[]>([]);
+  const [quizzes, setQuizzes] = useState<IQuizItem[]>([]);
 
   useEffect(() => {
     fetchQuizzes();
@@ -87,7 +75,7 @@ const QuizScreen = () => {
       </View>
       <Text style={{ left: '25%' }}>(13k Reviews)</Text>
 
-      <FlatList<QuizItem>
+      <FlatList<IQuizItem>
         data={quizzes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
