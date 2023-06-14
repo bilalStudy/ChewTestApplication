@@ -283,30 +283,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   selectedRecipeName: {
-<<<<<<< HEAD
-    fontSize: 24,
-=======
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black',
-    paddingHorizontal: 10,
-    textShadowColor: 'rgba(0, 0, 0, 0.4)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
-    textDecorationLine: 'underline',
-  },
-
-  closeButton: {
-    position: 'absolute',
-    bottom: 16,
-    left: 16,
-    padding: 10,
-    backgroundColor: 'orange',
-    borderRadius: 15,
-  },
-  closeButtonText: {
-    color: 'white',
->>>>>>> 9d6787ae851cba9d005dbe3e48e5c06508660507
     fontWeight: 'bold',
   },
   buttonRow: {
