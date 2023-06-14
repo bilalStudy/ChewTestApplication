@@ -12,6 +12,7 @@ import {
 import { recipeApi } from '../api/recipeApi';
 import TextInputWithIcon from './TextInputWithIcon';
 import Recipe from '../interfaces/IRecipe';
+import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
 
 const AlternativeRecipeScreen = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -19,6 +20,10 @@ const AlternativeRecipeScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showIngredients, setShowIngredients] = useState(false);
   const [showProcedure, setShowProcedure] = useState(false);
+  const route = useRoute()
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+  const [isFromAnnouncementScreen, setIsFromAnnouncementScreen] = useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -30,6 +35,49 @@ const AlternativeRecipeScreen = () => {
     };
     fetchRecipes();
   }, [searchTerm]);
+
+  useEffect(() => {
+    (async () => {
+      const allRecipes = await recipeApi.listAll();
+
+      // Filter recipes based on searchTerm
+      const filteredRecipes = allRecipes.filter(
+          (recipe: { dishname: string }) => {
+            return recipe.dishname
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+          }
+      );
+      setRecipes(filteredRecipes);
+    })();
+  }, [searchTerm]);
+
+
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+
+      // @ts-ignore
+      const { selectedData } = route.params || {};
+      setSearchTerm(selectedData || '');
+      console.log(selectedData)
+
+    }
+  }, [route.params]);
+
+
+  useEffect(() => {
+    if (!isFocused) {
+
+      // @ts-ignore
+      const { selectedData } = {};
+      setSearchTerm( '');
+      console.log(selectedData)
+
+    }
+  }, [isFocused]);
+
+
 
   const handleRecipePress = (recipe: Recipe) => {
     setSelectedRecipe(recipe);
@@ -78,6 +126,7 @@ const AlternativeRecipeScreen = () => {
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
         <TextInputWithIcon
+            value={searchTerm}
           onChangeText={handleSearch}
           icon="search"
           placeholder="Search recipe"
