@@ -22,8 +22,10 @@ const Profile = () => {
         }}
       />
       <View style={styles.text}>
-        <Text style={styles.name}>{currentUser.username}</Text>
+        <Text style={styles.name}>{currentUser.username} - {currentUser.fullname}</Text>
+        <Text style={styles.school}>{currentUser.school} {currentUser.gradeclass}</Text>
         <Text style={styles.info}>{currentUser.role}</Text>
+
       </View>
       <View style={styles.body}>
         <View style={styles.bodyContent}>
@@ -74,6 +76,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   info: {
+    fontSize: 15,
+    color: '#00000',
+    marginTop: 10,
+  },
+  school: {
     fontSize: 16,
     color: '#00000',
     marginTop: 10,
