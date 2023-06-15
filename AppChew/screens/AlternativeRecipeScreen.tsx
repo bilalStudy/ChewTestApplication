@@ -283,6 +283,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   selectedRecipeName: {
+    fontSize: 24,
     fontWeight: 'bold',
   },
   buttonRow: {
