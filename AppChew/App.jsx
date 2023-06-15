@@ -14,10 +14,6 @@ export default function App() {
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
-<<<<<<< HEAD
-          <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
-          <Stack.Screen options={{headerBackTitle: "Log Out"}} name="Home" component={MainContainer} />
-=======
           <Stack.Screen
             options={{ headerShown: false }}
             name="Splash Screen"
@@ -28,8 +24,8 @@ export default function App() {
             name="Login"
             component={LoginScreen}
           />
-          <Stack.Screen name="Home" component={MainContainer} />
->>>>>>> SplashScreen
+                    <Stack.Screen options={{headerBackTitle: "Log Out"}} name="Home" component={MainContainer} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
