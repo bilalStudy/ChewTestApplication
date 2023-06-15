@@ -24,7 +24,7 @@ const Profile = () => {
       </View>
       <View style={styles.body}>
         <View style={styles.bodyContent}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={logout}>
+          <TouchableOpacity style={styles.buttonContainer}>
             <Text>Option 1</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer}>
