@@ -8,6 +8,7 @@ import EventScreen from './screens/EventScreen';
 import AnnouncementScreen from './screens/AnnouncementScreen';
 import React, { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
+import StudentOverviewScreen from "./screens/StudentOverviewScreen";
 
 export const homeName = 'Announcements';
 export const quizName = 'Quizes';
@@ -88,7 +89,7 @@ export default function MainContainer() {
         ) : null}
         <Tab.Screen name={quizName} component={QuizScreen} />
         <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen} />
-        <Tab.Screen name={profileName} component={Profile} />
+        <Tab.Screen name={profileName} component={StudentOverviewScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

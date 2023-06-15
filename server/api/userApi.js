@@ -102,7 +102,21 @@ export function UserApi(db){
 
             res.send(user);
         })
-    
+
+        api.get("/:school/:role", async (req, res) => {
+            console.log(req.params.school)
+            console.log(req.params.role)
+
+            const listAllPupilsFromSchool = await db.collection("users")
+                .find({school: req.params.school, role: req.params.role}).toArray();
+
+
+            console.log(listAllPupilsFromSchool)
+
+            res.json(listAllPupilsFromSchool)
+        }),
+
+
         api.get("/", async (req, res) => {
             /*
             const managerId = req.cookies.manager;
