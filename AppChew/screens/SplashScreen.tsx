@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)', // Adjust the opacity value as desired
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
   logoContainer: {
     flex: 1,
