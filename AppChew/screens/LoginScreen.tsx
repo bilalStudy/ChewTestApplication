@@ -89,7 +89,7 @@ const LoginScreen = () => {
         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
-        <Text style={styles.buttonText}>Sign in</Text>
+        <Text style={styles.buttonText}>Sign in →</Text>
       </TouchableOpacity>
 
       <Text style={styles.orSignInWithText}>──── Or sign in With ────</Text>
