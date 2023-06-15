@@ -1,11 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigation } from '@react-navigation/core';
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-  const navigation = useNavigation();
 
   function logout() {
     //funker ikke pga vi bruker for gammel SDK og react versjon, fikser på slutten hvis vi får tid
