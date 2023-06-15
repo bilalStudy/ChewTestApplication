@@ -13,7 +13,11 @@ import {
 import { recipeApi } from '../api/recipeApi';
 import TextInputWithIcon from './TextInputWithIcon';
 import Recipe from '../interfaces/IRecipe';
-import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 
 const AlternativeRecipeScreen = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -21,10 +25,11 @@ const AlternativeRecipeScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showIngredients, setShowIngredients] = useState(false);
   const [showProcedure, setShowProcedure] = useState(false);
-  const route = useRoute()
+  const route = useRoute();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const [isFromAnnouncementScreen, setIsFromAnnouncementScreen] = useState(false);
+  const [isFromAnnouncementScreen, setIsFromAnnouncementScreen] =
+    useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -40,8 +45,6 @@ const AlternativeRecipeScreen = () => {
   useEffect(() => {
     (async () => {
       const allRecipes = await recipeApi.listAll();
-
-      // Filter recipes based on searchTerm
       const filteredRecipes = allRecipes.filter(
         (recipe: { dishname: string }) => {
           return recipe.dishname
@@ -310,7 +313,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     alignSelf: 'center',
-    marginTop: '10%'
+    marginTop: '10%',
   },
   closeButtonText: {
     color: 'white',

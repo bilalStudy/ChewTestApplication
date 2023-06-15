@@ -14,9 +14,10 @@ const StudentOverviewScreen: React.FC = () => {
     })();
   }, []);
 
-  const filteredStudents = students.filter((student) =>
-    student.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    student.school.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredStudents = students.filter(
+    (student) =>
+      student.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.school.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const renderItem = ({ item }: { item: any }) => (
@@ -39,11 +40,15 @@ const StudentOverviewScreen: React.FC = () => {
           placeholder="Search"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          placeholderTextColor="#fff" // Change the placeholder text color
+          placeholderTextColor="#fff"
         />
       </View>
       <View style={styles.listContainer}>
-        <FlatList data={filteredStudents} renderItem={renderItem} keyExtractor={(item) => item._id} />
+        <FlatList
+          data={filteredStudents}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+        />
       </View>
     </View>
   );
@@ -52,31 +57,31 @@ const StudentOverviewScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F08C2D', // Change the background color to orange
+    backgroundColor: '#F08C2D',
   },
   profileContainer: {
     padding: 10,
-    backgroundColor: '#F08C2D', // Change the background color to orange
+    backgroundColor: '#F08C2D',
   },
   profileText: {
-    color: '#fff', // Change the text color to white
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
   searchContainer: {
     padding: 10,
-    backgroundColor: '#F08C2D', // Change the background color to orange
+    backgroundColor: '#F08C2D',
   },
   searchInput: {
     height: 40,
-    backgroundColor: '#FFA64C', // Change the background color to a lighter shade of orange
+    backgroundColor: '#FFA64C',
     borderRadius: 5,
     paddingHorizontal: 10,
-    color: '#fff', // Change the text color to white
+    color: '#fff',
   },
   listContainer: {
     flex: 1,
-    backgroundColor: '#fff', // Change the background color of the list container to white
+    backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingTop: 20,
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
   studentContainer: {
     marginBottom: 10,
     padding: 10,
-    backgroundColor: '#F08C2D', // Change the background color of each student container to orange
+    backgroundColor: '#F08C2D',
     borderRadius: 5,
   },
 });

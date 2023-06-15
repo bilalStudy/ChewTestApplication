@@ -54,12 +54,11 @@ const QuizScreen = () => {
     setQuizzes((prevQuizzes) => {
       const updatedQuizzes = prevQuizzes.map((quiz) => {
         if (quiz.questions.some((q) => q.question === questionId)) {
-          let questionAnswered = false; // Flag to check if the question has already been answered
+          let questionAnswered = false;
 
           const updatedQuestions = quiz.questions.map((question) => {
             if (question.question === questionId) {
               if (question.userAnswer !== undefined) {
-                // If the question has already been answered, don't update anything
                 questionAnswered = true;
                 return question;
               }
@@ -77,7 +76,6 @@ const QuizScreen = () => {
             return question;
           });
 
-          // If the question has already been answered, don't update the quiz
           if (questionAnswered) {
             return quiz;
           }
@@ -98,41 +96,29 @@ const QuizScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          width: '80%',
-          padding: 10,
-          borderRadius: 10,
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.imageContainer}>
         <Image
           source={require('../assets/background2.jpg')}
-          style={{
-            resizeMode: 'cover',
-            width: '100%',
-            height: 150,
-            borderRadius: 10,
-          }}
+          style={styles.image}
         />
       </View>
-      <Text style={{ left: '25%', color: '#A9A9A9' }}>(13k Reviews)</Text>
+      <Text style={styles.reviewsText}>(13k Reviews)</Text>
 
-      <FlatList<QuizItem>
+      <FlatList
         data={quizzes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.quizItem}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-              Quiz Name: {item.quizName}
-            </Text>
+            <Text style={styles.quizNameText}>Quiz Name: {item.quizName}</Text>
             {item.questions.map((questionObj, index) => (
               <View
                 key={index}
-                style={[styles.quizItem, { width: screenWidth * 0.8 }]}
+                style={[styles.questionContainer, { width: screenWidth * 0.8 }]}
               >
                 <View style={styles.questionBox}>
-                  <Text style={{ fontWeight: 'bold' }}>{questionObj.question}</Text>
+                  <Text style={styles.questionText}>
+                    {questionObj.question}
+                  </Text>
                 </View>
                 <View style={styles.buttonContainer}>
                   <View
@@ -210,10 +196,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  imageContainer: {
+    width: '80%',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  image: {
+    resizeMode: 'cover',
+    width: '100%',
+    height: 150,
+    borderRadius: 10,
+  },
+  reviewsText: {
+    left: '25%',
+    color: '#A9A9A9',
+  },
   quizItem: {
     marginTop: 10,
     marginBottom: 10,
     alignItems: 'baseline',
+  },
+  quizNameText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  questionContainer: {
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: 'center',
   },
   questionBox: {
     width: '100%',
@@ -223,6 +234,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderColor: '#ccc',
+  },
+  questionText: {
+    fontWeight: 'bold',
   },
   buttonContainer: {
     flexDirection: 'row',

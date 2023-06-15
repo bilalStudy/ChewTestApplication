@@ -1,6 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useNavigation } from '@react-navigation/core';
 import {
   Image,
   Alert,
@@ -11,6 +10,7 @@ import {
   View,
   Linking,
 } from 'react-native';
+import { AuthContext } from '../context/AuthContext';
 import { userApi } from '../api/userApi';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -121,9 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
-  },
-  title: {
-    marginBottom: '15%',
   },
   imageContainer: {
     alignItems: 'flex-end',

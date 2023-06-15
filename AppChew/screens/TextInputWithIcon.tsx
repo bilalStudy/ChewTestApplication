@@ -12,30 +12,30 @@ const TextInputWithIcon: React.FC<ITextInputWithIconProps> = ({
   ...textInputProps
 }) => {
   return (
-    <View
-      style={[
-        {
-          height: 40,
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderWidth: 1,
-          borderColor,
-          borderRadius: 10,
-          marginBottom: 15,
-        },
-        containerStyle,
-      ]}
-    >
-      <Icon
-        name={icon}
-        size={iconSize}
-        color={iconColor}
-        style={{ marginRight: 10, marginLeft: 10 }}
-      />
-      <TextInput {...textInputProps} style={{ flex: 1 }} />
+    <View style={[styles.container, containerStyle]}>
+      <Icon name={icon} size={iconSize} color={iconColor} style={styles.icon} />
+      <TextInput {...textInputProps} style={styles.input} />
     </View>
   );
+};
+
+const styles = {
+  container: {
+    height: 40,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  icon: {
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  input: {
+    flex: 1,
+  },
 };
 
 export default TextInputWithIcon;
