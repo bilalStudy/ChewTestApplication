@@ -9,21 +9,23 @@ https://nodejs.org/en
 
 -open the source code in an IDE and an android emulator/iOS simulator and write this in the terminal:
 
->Npm I
+>npm i
 
 >Cd server
 
->Npm start
+>npm i
+
+>npm start
 
 (open another terminal window and write: )
 
->Cd AppChew
+>cd AppChew
 
->Npm I
+>npm I
 
->Npm start
+>npm start
 
->A 
+>a
 (you can also scan the code on your phone if you have expo installed) 
 
 
