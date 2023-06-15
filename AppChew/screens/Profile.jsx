@@ -1,15 +1,19 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useContext } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigation } from '@react-navigation/core';
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
+  const navigation = useNavigation();
 
-
+  function logout() {
+    navigation.navigate('Login');
+  }
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}></View>
+      <View style={styles.header} />
       <Image
         style={styles.avatar}
         source={{
@@ -17,15 +21,13 @@ const Profile = () => {
         }}
       />
       <View style={styles.text}>
-        <Text style={styles.name}>{currentUser.username} - {currentUser.fullname}</Text>
-        <Text style={styles.school}>{currentUser.school} {currentUser.gradeclass}</Text>
+        <Text style={styles.name}>{currentUser.username}</Text>
         <Text style={styles.info}>{currentUser.role}</Text>
-
       </View>
       <View style={styles.body}>
         <View style={styles.bodyContent}>
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text>Option 1</Text>
+          <TouchableOpacity style={styles.buttonContainer} onPress={logout}>
+            <Text>Sign out</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer}>
             <Text>Option 2</Text>
@@ -35,9 +37,11 @@ const Profile = () => {
     </View>
   );
 };
-export default Profile;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     backgroundColor: '#F86D47',
     height: 170,
@@ -71,20 +75,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   info: {
-    fontSize: 15,
-    color: '#00000',
-    marginTop: 10,
-  },
-  school: {
     fontSize: 16,
     color: '#00000',
     marginTop: 10,
-  },
-  description: {
-    fontSize: 16,
-    color: '#696969',
-    marginTop: 10,
-    textAlign: 'center',
   },
   buttonContainer: {
     marginTop: 10,
@@ -98,3 +91,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#F86D47',
   },
 });
+
+export default Profile;
