@@ -35,6 +35,6 @@ a sample teacher acount is:
 and a sample student account is:
 >username: pethar
 
->passwrord: password123
+>password: password123
 
 for more accounts, see the project result 2.1
