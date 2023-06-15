@@ -22,6 +22,11 @@ export const userApi = {
 
         return res.ok ? await res.json() : null;
     },
+    findPupils: async (school, role) => {
+        const res = await fetch(`${baseUrl}/api/users/${school}/${role}`);
+
+        return await res.json()
+    },
     registerNewUser:async (user) => {
         const res = await fetch(`${baseUrl}/api/users/register`, {
             method : "POST",
