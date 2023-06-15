@@ -11,6 +11,7 @@ const SplashScreen = () => {
         source={require('../assets/background2.jpg')}
         style={styles.backgroundImage}
       />
+      <View style={styles.overlay} />
 
       <View style={styles.logoContainer}>
         <Image
@@ -59,6 +60,10 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 10,
     position: 'absolute',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // Adjust the opacity value as desired
   },
   logoContainer: {
     flex: 1,
