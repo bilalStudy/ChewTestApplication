@@ -1,11 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigation } from '@react-navigation/core';
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-  const navigation = useNavigation();
 
 
 
