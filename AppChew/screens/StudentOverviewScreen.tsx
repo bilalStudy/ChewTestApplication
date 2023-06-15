@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { userApi } from '../api/userApi';
-import { Card } from 'react-native-paper';
 
 const StudentOverviewScreen: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -30,6 +29,10 @@ const StudentOverviewScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.profileContainer}>
+        <Text style={styles.profileText}>Name: {currentUser.fullname}</Text>
+        <Text style={styles.profileText}>Role: {currentUser.role}</Text>
+      </View>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -50,6 +53,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F08C2D', // Change the background color to orange
+  },
+  profileContainer: {
+    padding: 10,
+    backgroundColor: '#F08C2D', // Change the background color to orange
+  },
+  profileText: {
+    color: '#fff', // Change the text color to white
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   searchContainer: {
     padding: 10,
