@@ -1,16 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigation } from '@react-navigation/core';
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
-  const navigation = useNavigation();
 
-  function logout() {
-    //funker ikke pga vi bruker for gammel SDK og react versjon, fikser på slutten hvis vi får tid
-    navigation.navigate('Login');
-  }
+
 
   return (
     <View style={styles.container}>
@@ -29,8 +24,8 @@ const Profile = () => {
       </View>
       <View style={styles.body}>
         <View style={styles.bodyContent}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={logout}>
-            <Text>Sign out</Text>
+          <TouchableOpacity style={styles.buttonContainer}>
+            <Text>Option 1</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer}>
             <Text>Option 2</Text>
