@@ -123,7 +123,7 @@ const QuizScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.quizItem}>
-            <Text style={{ fontSize: 20, fontWeight: '500' }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
               Quiz Name: {item.quizName}
             </Text>
             {item.questions.map((questionObj, index) => (
@@ -132,7 +132,7 @@ const QuizScreen = () => {
                 style={[styles.quizItem, { width: screenWidth * 0.8 }]}
               >
                 <View style={styles.questionBox}>
-                  <Text>{questionObj.question}</Text>
+                  <Text style={{ fontWeight: 'bold' }}>{questionObj.question}</Text>
                 </View>
                 <View style={styles.buttonContainer}>
                   <View
