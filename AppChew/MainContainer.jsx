@@ -89,7 +89,9 @@ export default function MainContainer() {
         ) : null}
         <Tab.Screen name={quizName} component={QuizScreen} />
         <Tab.Screen name={recipiesName} component={AlternativeRecipeScreen} />
-        <Tab.Screen name={profileName} component={StudentOverviewScreen} />
+          {teacher ? (
+              <Tab.Screen name={profileName} component={StudentOverviewScreen} />
+          ) : <Tab.Screen name={profileName} component={Profile} />}
       </Tab.Navigator>
     </NavigationContainer>
   );
